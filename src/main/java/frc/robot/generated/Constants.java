@@ -42,7 +42,7 @@ public class Constants {
 
         public static final class PivotConstants {
         
-            public static final int pivot = 31;
+            public static final int pivot = 37;
             public static final int pivotspeed = 80;
         }
         

@@ -15,8 +15,27 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.generated.TunerConstants;
+import frc.robot.subsystems.FeederSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.PivotSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
 public class RobotContainer {
+
+ //intake Subsystem
+  public final IntakeSubsystem intake = new IntakeSubsystem();
+
+  //shooter Subsystem
+  public final ShooterSubsystem shooter = new ShooterSubsystem();
+
+  //Feeder Subsystem
+  public final FeederSubsystem feeder = new FeederSubsystem();
+
+  //pivot Subsystem
+  public final PivotSubsystem pivot = new PivotSubsystem();
+
+
+
   private double MaxSpeed = TunerConstants.kSpeedAt12VoltsMps; // kSpeedAt12VoltsMps desired top speed
   private double MaxAngularRate = 1.5 * Math.PI; // 3/4 of a rotation per second max angular velocity
 
@@ -40,17 +59,45 @@ public class RobotContainer {
             .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
         ));
 
-    joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
-    joystick.b().whileTrue(drivetrain
-        .applyRequest(() -> point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))));
-
-    // reset the field-centric heading on left bumper press
-    joystick.leftBumper().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
-
-    if (Utils.isSimulation()) {
-      drivetrain.seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));
-    }
+   
     drivetrain.registerTelemetry(logger::telemeterize);
+
+
+//intake
+      ////////////////////////
+      intake.setDefaultCommand(intake.withDisable());
+      joystick.x().onTrue(intake.slowspeed());
+      joystick.y().onTrue(intake.withVelocity(20));
+      joystick.a().onTrue(intake.withDisable());
+
+      
+ 
+
+      //Shooter
+      shooter.setDefaultCommand(shooter.withDisable());
+      joystick.rightBumper().onTrue(shooter.slowspeed());
+      //xbox.rightTrigger().onTrue(shooter.highspeed());
+      joystick.rightTrigger().onTrue(shooter.highspeed());
+      joystick.leftTrigger().onTrue(shooter.withDisable());
+
+      
+       
+      //feeder
+      feeder.setDefaultCommand(feeder.withDisable());
+      joystick.pov(270).onTrue(feeder.midspeed());
+      //xbox.pov(270).onTrue(feeder.withVelocity(maxSpeed.getDouble(0)));
+      joystick.leftBumper().onTrue(feeder.withDisable());
+      joystick.b().onTrue(feeder.withVelocity(-.1));
+
+   
+
+      //pivot
+      pivot.setDefaultCommand(pivot.stop());
+      joystick.pov(0).whileTrue(pivot.slowUp());
+      joystick.pov(180).whileTrue(pivot.slowDown());
+      joystick.pov(90).onTrue(pivot.stop());
+      
+
   }
 
   public RobotContainer() {
