@@ -1,9 +1,12 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.Shooter;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkMax;
+
+import java.util.function.BooleanSupplier;
+
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -35,7 +38,7 @@ public PivotSubsystem()
    m_encoder = m_pviot.getEncoder();
 
    // PID coefficients
-   kP = 0.1; 
+   kP = 0.2; 
    kI = 1e-4;
    kD = 1; 
    kIz = 0; 
@@ -50,9 +53,11 @@ public PivotSubsystem()
    m_pidController.setIZone(kIz);
    m_pidController.setFF(kFF);
    m_pidController.setOutputRange(kMinOutput, kMaxOutput);
+
+   m_encoder.setPosition(0);
 }
 
-private void setVelocity(double setPoint)
+public void setVelocity(double setPoint)
 {
   //m_pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
 m_pviot.set(setPoint);
@@ -61,6 +66,11 @@ m_pviot.set(setPoint);
 private void setPosition(double setPoint)
 {
   m_pidController.setReference(setPoint, CANSparkMax.ControlType.kPosition);
+}
+
+public void intakePosition()
+{
+  m_pidController.setReference(12.5, CANSparkMax.ControlType.kPosition);
 }
 
 public Command withCalculatedPosition(double distance)
@@ -74,21 +84,6 @@ public Command withCalculatedPosition(double distance)
 public Command withPosition(double setPoint)
 {
   return runOnce(() -> this.setPosition(setPoint));
-}
-
-public Command high()
-{
-  return runOnce(() -> this.setPosition(80));
-}
-
-public Command mid()
-{
-  return runOnce(() -> this.setPosition(50));
-}
-
-public Command low()
-{
-  return runOnce(() -> this.setPosition(20));
 }
 
 public Command slowUp()
@@ -106,17 +101,20 @@ public Command stop()
   return run(() -> this.setVelocity(0));
 }
 
+
+
+public boolean LimitChecks()
+{
+return ((m_encoder.getPosition() < 0.7 && m_pviot.getAppliedOutput() < 0) || (m_encoder.getPosition() > 37 && m_pviot.getAppliedOutput() > 0));
+}
+
 @Override
 public void periodic() {
   // This method will be called once per scheduler run
 SmartDashboard.putNumber("Shooter Pivot Encoder", m_encoder.getPosition());
+SmartDashboard.putNumber("Shooter Pivot Appied Voltage", m_pviot.getAppliedOutput() );
 
-/* 
-if(m_encoder.getPosition() < 0 && m_pviot.getAppliedOutput() < 0)//Pivot Limit Home
-{
- this.stop();
-}
-*/
+
 
 }
 
