@@ -14,11 +14,18 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.CommandBases.AMPPivotwithSpeed;
+import frc.robot.CommandBases.ElevatorWithSpeed;
 import frc.robot.CommandBases.IntakeCommand;
 import frc.robot.CommandBases.PivotwithSpeed;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.LEDSubsystem;
+import frc.robot.subsystems.AMP.AMPFeederSubsystem;
+import frc.robot.subsystems.AMP.AMPPivotSubsystem;
+import frc.robot.subsystems.AMP.ElevatorSubsystem;
 import frc.robot.subsystems.Shooter.FeederSubsystem;
 import frc.robot.subsystems.Shooter.IntakeSubsystem;
 import frc.robot.subsystems.Shooter.PivotSubsystem;
@@ -40,6 +47,21 @@ public class RobotContainer {
   public final PivotwithSpeed pivotup = new PivotwithSpeed(pivot,.1);
   public final PivotwithSpeed pivotdown = new PivotwithSpeed(pivot,-.1);
 
+  //AMPPivot
+  public final AMPPivotSubsystem amppivot = new AMPPivotSubsystem();
+
+  public final AMPPivotwithSpeed amppivotup = new AMPPivotwithSpeed(amppivot,.1);
+  public final AMPPivotwithSpeed amppivotdown = new AMPPivotwithSpeed(amppivot,-.1);
+
+
+  //ELEVATOR
+  public final ElevatorSubsystem elevator = new ElevatorSubsystem();
+
+  public final ElevatorWithSpeed elevatorup = new ElevatorWithSpeed(elevator, .1);
+  public final ElevatorWithSpeed elevatordown = new ElevatorWithSpeed(elevator, -.1);
+
+  //AMPFEEDER
+  public final AMPFeederSubsystem ampfeeder = new AMPFeederSubsystem();
   //Commands
   private final LEDSubsystem led = new LEDSubsystem(0);
 
@@ -50,8 +72,13 @@ public class RobotContainer {
   private double MaxAngularRate = 1.5 * Math.PI; // 3/4 of a rotation per second max angular velocity
 
   /* Setting up bindings for necessary control of the swerve drive platform */
-  private final CommandXboxController joystick = new CommandXboxController(0); // My joystick
+  private final CommandXboxController xbox = new CommandXboxController(0); // My joystick
+  private final CommandJoystick joystick = new CommandJoystick(1); // My joystick
   private final CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain; // My drivetrain
+
+  private final SwerveRequest.RobotCentric robotdrive = new SwerveRequest.RobotCentric()
+      .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
+      .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
 
   private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
       .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
@@ -63,60 +90,79 @@ public class RobotContainer {
 
   private void configureBindings() {
     drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
-        drivetrain.applyRequest(() -> drive.withVelocityX(joystick.getLeftY() * MaxSpeed) // Drive forward with
+        drivetrain.applyRequest(() -> drive.withVelocityX(xbox.getLeftY() * MaxSpeed) // Drive forward with
                                                                                            // negative Y (forward)
-            .withVelocityY(joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-            .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+            .withVelocityY(xbox.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+            .withRotationalRate(-xbox.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
         ));
 
-     // joystick.x().onTrue
-
+      xbox.x().onTrue( drivetrain.applyRequest(() -> robotdrive.withVelocityX(xbox.getLeftY() * MaxSpeed) // Drive forward with
+                                                                                           // negative Y (forward)
+            .withVelocityY(xbox.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+            .withRotationalRate(-xbox.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+        ));
    
-    drivetrain.registerTelemetry(logger::telemeterize);
+    //drivetrain.registerTelemetry(logger::telemeterize);
 
 
 //intake
       ////////////////////////
       intake.setDefaultCommand(intake.withDisable());
       //joystick.x().onTrue(intake.slowspeed());
-      joystick.y().onTrue(intake.withVelocity(20));
-      joystick.a().onTrue(intake.withDisable());
 
-      
- 
-
-      //Shooter
-      shooter.setDefaultCommand(shooter.withDisable());
-     // joystick.rightBumper().onTrue(shooter.slowspeed());
-      //xbox.rightTrigger().onTrue(shooter.highspeed());
-      joystick.rightTrigger().onTrue(shooter.highspeed());
-      joystick.leftTrigger().onTrue(shooter.withDisable());
-
-      
-       
-      //feeder
+//feeder
       feeder.setDefaultCommand(feeder.withDisable());
-      joystick.pov(270).onTrue(feeder.midspeed());
-      //xbox.pov(270).onTrue(feeder.withVelocity(maxSpeed.getDouble(0)));
-      joystick.leftBumper().onTrue(feeder.withDisable());
-      joystick.rightBumper().onTrue(intakecommand);
-      joystick.b().onTrue(feeder.withVelocity(-.1));
+      xbox.leftTrigger().whileTrue(feeder.midspeed());
 
-   
+
+//Intake Commands
+      xbox.rightBumper().onTrue(intakecommand);
+      xbox.leftBumper().whileTrue(new ParallelCommandGroup(intake.withVelocity(20),feeder.withVelocity(20),shooter.withDisable()));
+      
+//Shooter
+      shooter.setDefaultCommand(shooter.withDisable());
+      xbox.leftTrigger().onTrue(shooter.highspeed());
 
       //pivot
       pivot.setDefaultCommand(pivot.stop());
      // joystick.pov(0).whileTrue(pivot.slowUp());
      // joystick.pov(180).whileTrue(pivot.slowDown());
-       joystick.pov(0).whileTrue(pivotup);
-       joystick.pov(180).whileTrue(pivotdown);
-      joystick.pov(90).onTrue(pivot.stop());
+       xbox.pov(0).whileTrue(pivotup);
+       xbox.pov(180).whileTrue(pivotdown);
+       //joystick.pov(90).onTrue(pivot.stop());
       
 
       SmartDashboard.putData("Autonomous Command", drivetrain.runOnce(() ->  drivetrain.seedFieldRelative()));
 
 
-  }
+
+
+
+//OPERATOR CONTROLS
+
+//AmpFeeder
+ampfeeder.setDefaultCommand(ampfeeder.withDisable());
+joystick.button(1).whileTrue(ampfeeder.midspeed());
+joystick.button(2).whileTrue(ampfeeder.withVelocity(-0.8));
+  
+//AMPpivot
+amppivot.setDefaultCommand(amppivot.holdPosition());
+joystick.pov(0).whileTrue(amppivotup);
+joystick.pov(180).whileTrue(amppivotdown);
+
+joystick.button(7).whileTrue(amppivot.withPosition(0));
+joystick.button(8).whileTrue(amppivot.withPosition(0));
+
+//Elevator
+////////////////////////
+elevator.setDefaultCommand(elevator.holdPosition());
+joystick.button(10).whileTrue(elevatorup);
+joystick.button(9).whileTrue(elevatordown);
+joystick.button(12).onTrue(elevator.setUpPosition());
+joystick.button(11).onTrue(elevator.setHomePosition());
+
+
+}
 
   public RobotContainer() {
     configureBindings();

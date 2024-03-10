@@ -116,9 +116,8 @@ public Command holdPosition()
 
 public Command setHomePosition()
 {
-  return runOnce(() -> this.setPosition(ElevatorConstants.HOMEPosition)); //need to find
+  return run(() -> this.setPosition(-2)); // need to find
 }
-
 
 public Command setUpPosition()
 {
