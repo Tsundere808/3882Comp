@@ -66,6 +66,13 @@ public class Constants {
             public static final int climber = 3;
         }
 
-        
+        public static final class LimeLightConstants {
+            //28
+        public static final double limelightMountAngledegrees = Math.toRadians(28);
+        public static final double limelightLensHeightInches = 31.0625;
+        public static final double goalHeightInches = 49.3125;
+        public static final double heightOfShooter = 0;           
+        public static final double distanceFromShooter = 0;
+    }
 
 }

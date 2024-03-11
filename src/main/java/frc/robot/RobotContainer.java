@@ -144,7 +144,8 @@ public class RobotContainer {
 //Shooter
       shooter.setDefaultCommand(shooter.withDisable());
       xbox.leftTrigger().onTrue(shooter.highspeed());
-      xbox.b().onTrue(shooter.slowspeed());
+      //xbox.b().onTrue(shooter.slowspeed());
+
       
       //pivot
       pivot.setDefaultCommand(pivot.holdPosition());
@@ -154,6 +155,9 @@ public class RobotContainer {
        xbox.pov(180).whileTrue(pivotdown);
        //joystick.pov(90).onTrue(pivot.stop());
        xbox.y().onTrue(pivot.withPosition(24.96));
+
+       xbox.b().onTrue(pivot.lightlightAutoAim(LimelightHelpers.getTY("limelight-lunas")));
+
 
       SmartDashboard.putData("Autonomous Command", drivetrain.runOnce(() ->  drivetrain.seedFieldRelative()));
 
@@ -209,7 +213,6 @@ joystick.button(3).whileTrue(climber.slowUp());
   NamedCommands.registerCommand("StartShoot", autoshoot);
   NamedCommands.registerCommand("FeederShoot", feederShot);
   NamedCommands.registerCommand("AutoShoot",autoshoot );
-
 
   NamedCommands.registerCommand("ShootSubwoofer", new SequentialCommandGroup(autoPivotSub,autoshoot,feederShot));
 //new WaitCommand(1),new ParallelCommandGroup(intake.withVelocity(0),feeder.withVelocity(0),shooter.withDisable())
