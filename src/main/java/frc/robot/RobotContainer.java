@@ -7,6 +7,7 @@ package frc.robot;
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -18,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.CommandBases.AMPPivotwithSpeed;
@@ -103,9 +105,9 @@ public class RobotContainer {
 
   private void configureBindings() {
     drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
-        drivetrain.applyRequest(() -> drive.withVelocityX(-xbox.getLeftY() * MaxSpeed) // Drive forward with
+        drivetrain.applyRequest(() -> drive.withVelocityX(xbox.getLeftY() * MaxSpeed) // Drive forward with
                                                                                            // negative Y (forward)
-            .withVelocityY(-xbox.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+            .withVelocityY(xbox.getLeftX() * MaxSpeed) // Drive left with negative X (left)
             .withRotationalRate(-xbox.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
         ));
 
@@ -138,13 +140,13 @@ public class RobotContainer {
       xbox.b().onTrue(shooter.slowspeed());
       
       //pivot
-      pivot.setDefaultCommand(pivot.stop());
+      pivot.setDefaultCommand(pivot.holdPosition());
      // joystick.pov(0).whileTrue(pivot.slowUp());
      // joystick.pov(180).whileTrue(pivot.slowDown());
        xbox.pov(0).whileTrue(pivotup);
        xbox.pov(180).whileTrue(pivotdown);
        //joystick.pov(90).onTrue(pivot.stop());
-      xbox.y().onTrue(pivot.withPosition(24.96));
+       xbox.y().onTrue(pivot.withPosition(24.96));
 
       SmartDashboard.putData("Autonomous Command", drivetrain.runOnce(() ->  drivetrain.seedFieldRelative()));
 
@@ -192,6 +194,16 @@ joystick.button(3).whileTrue(climber.slowUp());
 
   public RobotContainer() {
     configureBindings();
+
+
+  NamedCommands.registerCommand("setFieldRelative",drivetrain.runOnce(() ->  drivetrain.seedFieldRelative()));
+  NamedCommands.registerCommand("startIntake", intakecommand);
+  NamedCommands.registerCommand("SubwooferPivot", pivot.withPosition(24.96));
+  NamedCommands.registerCommand("StartShoot", shooter.highspeed());
+  NamedCommands.registerCommand("FeederShoot", feeder.midspeed());
+
+
+  NamedCommands.registerCommand("ShootSubwoofer", new SequentialCommandGroup(shooter.highspeed(),new WaitCommand(0.5),feeder.midspeed()));
 
   autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
   SmartDashboard.putData("Auto Mode", autoChooser);

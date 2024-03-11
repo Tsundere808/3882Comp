@@ -111,6 +111,11 @@ public Command stop()
   return run(() -> this.setVelocity(0));
 }
 
+public Command holdPosition()
+{
+  return run(() -> this.setPosition(this.m_encoder.getPosition()));
+}
+
 
 
 public boolean LimitChecks()
