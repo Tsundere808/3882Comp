@@ -68,7 +68,7 @@ public Command midspeed()
 
 public Command slowspeed()
 {
-  return run(() -> this.setVelocity(50));
+  return run(() -> this.setVelocity(70));
 }
 
 public Command ampSpeed()

@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.41,
+        "y": 5.53
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.51,
+        "y": 5.53
+      },
+      "isLocked": false,
+      "linkedName": "MidShot"
+    },
+    {
+      "anchor": {
+        "x": 2.5636756374343124,
+        "y": 4.391924892983831
+      },
+      "prevControl": {
+        "x": 2.4636756374343123,
+        "y": 4.391924892983831
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "StagePickup"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -40.06078445787378,
+    "rotateFast": true
+  },
+  "reversed": false,
+  "folder": null,
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
