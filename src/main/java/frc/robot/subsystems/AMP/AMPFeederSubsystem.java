@@ -24,7 +24,7 @@ private final NeutralOut m_brake = new NeutralOut();
 public AMPFeederSubsystem()
 {
        m_feeder = new VictorSPX(AMPFeederConstants.feeder);
-       encoder = new Encoder(AMPFeederConstants.feederEncoderA, AMPFeederConstants.feederEncoderB);     
+      // encoder = new Encoder(AMPFeederConstants.feederEncoderA, AMPFeederConstants.feederEncoderB);     
 }
 
 public void disable()

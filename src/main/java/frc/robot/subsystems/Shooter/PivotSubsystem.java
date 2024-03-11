@@ -70,7 +70,7 @@ private void setPosition(double setPoint)
 
 public void intakePosition()
 {
-  m_pidController.setReference(12.5, CANSparkMax.ControlType.kPosition);
+  m_pidController.setReference(9.95, CANSparkMax.ControlType.kPosition);
 }
 
 public void subwooferPosition()
@@ -93,7 +93,7 @@ public Command withCalculatedPosition(double distance)
 
 public Command withPosition(double setPoint)
 {
-  return runOnce(() -> this.setPosition(setPoint));
+  return run(() -> this.setPosition(setPoint));
 }
 
 public Command slowUp()

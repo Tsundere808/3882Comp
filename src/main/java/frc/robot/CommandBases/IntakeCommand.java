@@ -29,8 +29,8 @@ public class IntakeCommand extends Command{
 
       @Override
   public void initialize() {
-    feeder.setVelocity(.3);
-    intake.setVelocity(-15);
+    feeder.setVelocity(.32);
+    intake.setVelocity(-50);
     pivot.intakePosition();
     
   }

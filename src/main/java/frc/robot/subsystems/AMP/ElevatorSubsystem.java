@@ -121,7 +121,7 @@ public Command setHomePosition()
 
 public Command setUpPosition()
 {
-  return run(() -> this.setPosition(-50)); // need to find
+  return run(() -> this.setPosition(-51)); // need to find
 }
 
 

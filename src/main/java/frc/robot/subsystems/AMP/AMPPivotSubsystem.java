@@ -3,7 +3,7 @@ package frc.robot.subsystems.AMP;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
-import com.revrobotics.CANSparkFlex;
+import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -13,7 +13,7 @@ import frc.robot.generated.Constants.AMPPivotConstants;
 
 public class AMPPivotSubsystem extends SubsystemBase{
 
-private CANSparkFlex m_pviot;
+private CANSparkMax m_pviot;
 private SparkPIDController m_pidController;
 private RelativeEncoder m_encoder;
 public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
@@ -21,7 +21,7 @@ public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
 
 public AMPPivotSubsystem()
 {
-  m_pviot = new CANSparkFlex(AMPPivotConstants.pivot, MotorType.kBrushless);
+  m_pviot = new CANSparkMax(AMPPivotConstants.pivot, MotorType.kBrushless);
   m_pviot.restoreFactoryDefaults();
   /**
      * In order to use PID functionality for a controller, a SparkPIDController object
@@ -34,7 +34,7 @@ public AMPPivotSubsystem()
    m_encoder = m_pviot.getEncoder();
 
    // PID coefficients
-   kP = 0.15; 
+   kP = 0.4; 
    kI = 1e-4;
    kD = 1; 
    kIz = 0; 
@@ -81,7 +81,7 @@ public Command withCalculatedPosition(double distance)
 
 public Command withPosition(double setPoint)
 {
-  return runOnce(() -> this.setPosition(setPoint));
+  return run(() -> this.setPosition(setPoint));
 }
 
 public Command holdPosition()

@@ -74,7 +74,8 @@ public class RobotContainer {
   /* Setting up bindings for necessary control of the swerve drive platform */
   private final CommandXboxController xbox = new CommandXboxController(0); // My joystick
   private final CommandJoystick joystick = new CommandJoystick(1); // My joystick
-  private final CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain; // My drivetrain
+  
+    private final CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain; // My drivetrain
 
   private final SwerveRequest.RobotCentric robotdrive = new SwerveRequest.RobotCentric()
       .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
@@ -112,12 +113,12 @@ public class RobotContainer {
 
 //feeder
       feeder.setDefaultCommand(feeder.withDisable());
-      xbox.leftTrigger().whileTrue(feeder.midspeed());
+      xbox.rightTrigger().whileTrue(feeder.midspeed());
 
 
 //Intake Commands
       xbox.rightBumper().onTrue(intakecommand);
-      xbox.leftBumper().whileTrue(new ParallelCommandGroup(intake.withVelocity(20),feeder.withVelocity(20),shooter.withDisable()));
+      xbox.leftBumper().whileTrue(new ParallelCommandGroup(intake.withVelocity(20),feeder.withVelocity(-20),shooter.withDisable()));
       
 //Shooter
       shooter.setDefaultCommand(shooter.withDisable());
@@ -130,7 +131,7 @@ public class RobotContainer {
        xbox.pov(0).whileTrue(pivotup);
        xbox.pov(180).whileTrue(pivotdown);
        //joystick.pov(90).onTrue(pivot.stop());
-      
+      xbox.y().onTrue(pivot.withPosition(24.96));
 
       SmartDashboard.putData("Autonomous Command", drivetrain.runOnce(() ->  drivetrain.seedFieldRelative()));
 
@@ -147,18 +148,20 @@ joystick.button(2).whileTrue(ampfeeder.withVelocity(-0.8));
   
 //AMPpivot
 amppivot.setDefaultCommand(amppivot.holdPosition());
-joystick.pov(0).whileTrue(amppivotup);
-joystick.pov(180).whileTrue(amppivotdown);
+joystick.pov(180).whileTrue(amppivotup);
+joystick.pov(0).whileTrue(amppivotdown);
 
-joystick.button(7).whileTrue(amppivot.withPosition(0));
-joystick.button(8).whileTrue(amppivot.withPosition(0));
+joystick.button(7).onTrue(amppivot.withPosition(44));//intake position
+joystick.button(8).onTrue(amppivot.withPosition(3)); //home 
 
 //Elevator
 ////////////////////////
 elevator.setDefaultCommand(elevator.holdPosition());
 joystick.button(10).whileTrue(elevatorup);
 joystick.button(9).whileTrue(elevatordown);
-joystick.button(12).onTrue(elevator.setUpPosition());
+//joystick.button(12).onTrue(elevator.setUpPosition());
+joystick.button(12).onTrue(new ParallelCommandGroup(elevator.setUpPosition(),amppivot.withPosition(27.3)));
+
 joystick.button(11).onTrue(elevator.setHomePosition());
 
 
