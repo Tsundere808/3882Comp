@@ -28,7 +28,7 @@ public class FeederShot extends Command{
 
       @Override
       public boolean isFinished() {
-       return !feeder.noteCheck();
+       return true;
       }
 
      @Override

@@ -206,8 +206,8 @@ joystick.button(3).whileTrue(climber.slowUp());
   NamedCommands.registerCommand("setFieldRelative",drivetrain.runOnce(() ->  drivetrain.seedFieldRelative()));
   NamedCommands.registerCommand("startIntake", intakecommand);
   NamedCommands.registerCommand("SubwooferPivot",autoPivotSub);
-  NamedCommands.registerCommand("StartShoot", shooter.highspeed());
-  NamedCommands.registerCommand("FeederShoot", feeder.midspeed());
+  NamedCommands.registerCommand("StartShoot", autoshoot);
+  NamedCommands.registerCommand("FeederShoot", feederShot);
   NamedCommands.registerCommand("AutoShoot",autoshoot );
 
 

@@ -8,13 +8,25 @@
         {
           "type": "named",
           "data": {
-            "name": "startIntake"
+            "name": "ShootSubwoofer"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ShootSubwoofer"
+            "name": "startIntake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "FeederShoot"
           }
         }
       ]

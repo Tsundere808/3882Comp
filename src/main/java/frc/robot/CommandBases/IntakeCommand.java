@@ -39,6 +39,8 @@ public class IntakeCommand extends Command{
   public void execute()
   {
     pivot.intakePosition();
+    feeder.setVelocity(.32);
+    intake.setVelocity(-50);
   }
 
       @Override
@@ -50,6 +52,6 @@ public class IntakeCommand extends Command{
      public void end(boolean interrupted) {
       feeder.setVelocity(0);
       intake.setVelocity(0);
-      pivot.holdPosition();
+      pivot.setVelocity(0);
      }
 }
