@@ -23,7 +23,10 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.CommandBases.AMPPivotwithSpeed;
+import frc.robot.CommandBases.AutoPivotSub;
+import frc.robot.CommandBases.AutoShoot;
 import frc.robot.CommandBases.ElevatorWithSpeed;
+import frc.robot.CommandBases.FeederShot;
 import frc.robot.CommandBases.IntakeCommand;
 import frc.robot.CommandBases.PivotwithSpeed;
 import frc.robot.generated.TunerConstants;
@@ -81,6 +84,10 @@ public class RobotContainer {
 
 
   IntakeCommand intakecommand = new IntakeCommand(intake, feeder, led,pivot);
+  AutoPivotSub autoPivotSub = new AutoPivotSub(pivot);
+  AutoShoot autoshoot = new AutoShoot(feeder, shooter);
+  FeederShot feederShot = new FeederShot(feeder);
+
 
   private double MaxSpeed = TunerConstants.kSpeedAt12VoltsMps; // kSpeedAt12VoltsMps desired top speed
   private double MaxAngularRate = 1.5 * Math.PI; // 3/4 of a rotation per second max angular velocity
@@ -198,13 +205,14 @@ joystick.button(3).whileTrue(climber.slowUp());
 
   NamedCommands.registerCommand("setFieldRelative",drivetrain.runOnce(() ->  drivetrain.seedFieldRelative()));
   NamedCommands.registerCommand("startIntake", intakecommand);
-  NamedCommands.registerCommand("SubwooferPivot", pivot.withPosition(24.96));
+  NamedCommands.registerCommand("SubwooferPivot",autoPivotSub);
   NamedCommands.registerCommand("StartShoot", shooter.highspeed());
   NamedCommands.registerCommand("FeederShoot", feeder.midspeed());
+  NamedCommands.registerCommand("AutoShoot",autoshoot );
 
 
-  NamedCommands.registerCommand("ShootSubwoofer", new SequentialCommandGroup(shooter.highspeed(),new WaitCommand(0.5),feeder.midspeed()));
-
+  NamedCommands.registerCommand("ShootSubwoofer", new SequentialCommandGroup(autoPivotSub,autoshoot,feederShot));
+//new WaitCommand(1),new ParallelCommandGroup(intake.withVelocity(0),feeder.withVelocity(0),shooter.withDisable())
   autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
   SmartDashboard.putData("Auto Mode", autoChooser);
 

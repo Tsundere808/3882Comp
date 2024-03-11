@@ -9,47 +9,32 @@ import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.Shooter.FeederSubsystem;
 import frc.robot.subsystems.Shooter.IntakeSubsystem;
 import frc.robot.subsystems.Shooter.PivotSubsystem;
+import frc.robot.subsystems.Shooter.ShooterSubsystem;
 
 
-public class IntakeCommand extends Command{
+public class AutoShoot extends Command{
 
-    private final IntakeSubsystem intake;
     private final FeederSubsystem feeder;
-    private final PivotSubsystem pivot;
+    private final ShooterSubsystem shooter;
 
-    private final LEDSubsystem led;
 
-    public IntakeCommand(IntakeSubsystem intake,FeederSubsystem feeder, LEDSubsystem led, PivotSubsystem pivot) {
-        this.intake = intake;
+    public AutoShoot(FeederSubsystem feeder,ShooterSubsystem shooter) {
         this.feeder = feeder;
-        this.pivot = pivot;
-        this.led = led;
-        addRequirements(intake,feeder,led);
+        this.shooter =  shooter;
+        addRequirements(shooter,feeder);
       }
 
       @Override
   public void initialize() {
-    feeder.setVelocity(.32);
-    intake.setVelocity(-50);
-    pivot.intakePosition();
-    
-  }
-
-  @Override
-  public void execute()
-  {
-    pivot.intakePosition();
+    shooter.setVelocity(100);
   }
 
       @Override
       public boolean isFinished() {
-       return feeder.noteCheck();
+        return shooter.getSpeed() < -70;
       }
 
      @Override
      public void end(boolean interrupted) {
-      feeder.setVelocity(0);
-      intake.setVelocity(0);
-      pivot.holdPosition();
-     }
+    }
 }

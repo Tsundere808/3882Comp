@@ -5,6 +5,7 @@ import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -41,6 +42,11 @@ private void disable()
 {
     m_topsh.setControl(m_brake);
     m_botsh.setControl(m_brake);
+}
+
+public double getSpeed()
+{
+  return m_topsh.getRotorVelocity().getValue();
 }
 
 public void setVelocity(double desiredRotationsPerSecond)
@@ -84,6 +90,13 @@ public Command withVelocity(double desiredRotationsPerSecond)
 public Command withDisable()
 {
     return run(() -> this.disable());
+}
+
+
+@Override
+public void periodic() {
+  // This method will be called once per scheduler run
+SmartDashboard.putNumber("Shooter speed", this.getSpeed());
 }
 
 }

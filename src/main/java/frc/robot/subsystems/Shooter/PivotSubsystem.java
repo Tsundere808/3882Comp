@@ -63,7 +63,7 @@ public void setVelocity(double setPoint)
 m_pviot.set(setPoint);
 }
 
-private void setPosition(double setPoint)
+public void setPosition(double setPoint)
 {
   m_pidController.setReference(setPoint, CANSparkMax.ControlType.kPosition);
 }

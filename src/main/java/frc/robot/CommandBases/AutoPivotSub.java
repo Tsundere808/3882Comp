@@ -11,45 +11,28 @@ import frc.robot.subsystems.Shooter.IntakeSubsystem;
 import frc.robot.subsystems.Shooter.PivotSubsystem;
 
 
-public class IntakeCommand extends Command{
+public class AutoPivotSub extends Command{
 
-    private final IntakeSubsystem intake;
-    private final FeederSubsystem feeder;
     private final PivotSubsystem pivot;
 
-    private final LEDSubsystem led;
-
-    public IntakeCommand(IntakeSubsystem intake,FeederSubsystem feeder, LEDSubsystem led, PivotSubsystem pivot) {
-        this.intake = intake;
-        this.feeder = feeder;
+    public AutoPivotSub(PivotSubsystem pivot) {
         this.pivot = pivot;
-        this.led = led;
-        addRequirements(intake,feeder,led);
+        addRequirements(pivot);
       }
 
       @Override
   public void initialize() {
-    feeder.setVelocity(.32);
-    intake.setVelocity(-50);
-    pivot.intakePosition();
+      pivot.setPosition(25);
     
-  }
-
-  @Override
-  public void execute()
-  {
-    pivot.intakePosition();
   }
 
       @Override
       public boolean isFinished() {
-       return feeder.noteCheck();
+        return true;
       }
 
      @Override
      public void end(boolean interrupted) {
-      feeder.setVelocity(0);
-      intake.setVelocity(0);
-      pivot.holdPosition();
-     }
+      pivot.setPosition(25);
+    }
 }
