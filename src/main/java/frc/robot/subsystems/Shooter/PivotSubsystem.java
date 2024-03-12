@@ -9,9 +9,11 @@ import java.util.function.BooleanSupplier;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.LimelightHelpers;
 import frc.robot.generated.Constants.LimeLightConstants;
 import frc.robot.generated.Constants.PivotConstants;
 import frc.robot.generated.Constants.ShooterConstants;;
@@ -86,8 +88,8 @@ public void otherPositions()
 
 public double getDistance(double ty)
 {
-    return (LimeLightConstants.limelightLensHeightInches - LimeLightConstants.goalHeightInches) / 
-    Math.abs(Math.toRadians(LimeLightConstants.limelightMountAngledegrees) + Math.toRadians(ty));
+    return ((LimeLightConstants.goalHeightInches - LimeLightConstants.limelightLensHeightInches) / 
+    Math.tan(Math.toRadians(LimeLightConstants.limelightMountAngledegrees) + Math.toRadians(ty)));
 
 }
 
@@ -98,7 +100,7 @@ public Command withPosition(double setPoint)
 
 public Command lightlightAutoAim (double ty) {
 
-  return run(() -> this.setPosition(((this.getDistance(ty) - 36.125)*0.1194) +24.96));
+  return run(() -> this.setPosition(MathUtil.clamp((((this.getDistance(LimelightHelpers.getTY("limelight-lunas")) - 36.125) * 0.1194) + 24.96), 0.0, 37)));
 }
 
 public Command slowUp()
@@ -132,8 +134,10 @@ return ((m_encoder.getPosition() < 0.7 && m_pviot.getAppliedOutput() < 0) || (m_
 public void periodic() {
   // This method will be called once per scheduler run
 SmartDashboard.putNumber("Shooter Pivot Encoder", m_encoder.getPosition());
-SmartDashboard.putNumber("Shooter Pivot Appied Voltage", m_pviot.getAppliedOutput() );
+SmartDashboard.putNumber("Shooter Pivot Appied Voltage", m_pviot.getAppliedOutput());
 
+SmartDashboard.putNumber("distance", this.getDistance(LimelightHelpers.getTY("limelight-lunas")));
+SmartDashboard.putNumber("calculated encoder value", (MathUtil.clamp((((this.getDistance(LimelightHelpers.getTY("limelight-lunas")) - 36.125) * 0.1194) + 25.66), 0.0, 37))); //24.96
 }
 
 
