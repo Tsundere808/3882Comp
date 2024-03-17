@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.81,
+      "y": 4.35
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "setFieldRelative"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LEFTSTART SHOT"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootSubwoofer"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "pivothold"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

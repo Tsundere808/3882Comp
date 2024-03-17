@@ -58,6 +58,11 @@ public PivotSubsystem()
    m_encoder.setPosition(0);
 }
 
+public double getPosition()
+{
+return m_pviot.getEncoder().getPosition();
+}
+
 public void setVelocity(double setPoint)
 {
   //m_pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
@@ -71,12 +76,12 @@ public void setPosition(double setPoint)
 
 public void intakePosition()
 {
-  m_pidController.setReference(9.95, CANSparkMax.ControlType.kPosition);
+  m_pidController.setReference(11.0, CANSparkMax.ControlType.kPosition);
 }
 
 public void subwooferPosition()
 {
-  m_pidController.setReference(12.5, CANSparkMax.ControlType.kPosition);
+  m_pidController.setReference(25, CANSparkMax.ControlType.kPosition);
 }
 
 public void otherPositions()
@@ -88,12 +93,16 @@ public double getDistance(double ty)
 {
     return (LimeLightConstants.limelightLensHeightInches - LimeLightConstants.goalHeightInches) / 
     Math.abs(Math.toRadians(LimeLightConstants.limelightMountAngledegrees) + Math.toRadians(ty));
-
 }
 
 public Command withPosition(double setPoint)
 {
   return run(() -> this.setPosition(setPoint));
+}
+
+public Command withPositionAuto(double setPoint)
+{
+  return runOnce(() -> this.setPosition(setPoint));
 }
 
 public Command lightlightAutoAim (double ty) {
@@ -121,6 +130,10 @@ public Command holdPosition()
   return run(() -> this.setPosition(this.m_encoder.getPosition()));
 }
 
+public Command holdPositionAuto()
+{
+  return runOnce(() -> this.setPosition(this.m_encoder.getPosition()));
+}
 
 
 public boolean LimitChecks()
@@ -130,11 +143,10 @@ return ((m_encoder.getPosition() < 0.7 && m_pviot.getAppliedOutput() < 0) || (m_
 
 @Override
 public void periodic() {
-  // This method will be called once per scheduler run
+// This method will be called once per scheduler run
 SmartDashboard.putNumber("Shooter Pivot Encoder", m_encoder.getPosition());
 SmartDashboard.putNumber("Shooter Pivot Appied Voltage", m_pviot.getAppliedOutput() );
 
 }
-
 
 }

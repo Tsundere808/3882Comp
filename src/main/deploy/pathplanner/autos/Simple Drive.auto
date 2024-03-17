@@ -2,7 +2,7 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.5022126366909918,
+      "x": 1.2198050493372643,
       "y": 5.511817049731372
     },
     "rotation": 0
@@ -12,21 +12,22 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "setFieldRelative"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShootSubwoofer"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "MidPickUp"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "startIntake"
+                }
+              }
+            ]
           }
         },
         {
@@ -34,24 +35,18 @@
           "data": {
             "commands": [
               {
+                "type": "path",
+                "data": {
+                  "pathName": "MidShot"
+                }
+              },
+              {
                 "type": "named",
                 "data": {
                   "name": "startIntake"
                 }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "MidPickUp"
-                }
               }
             ]
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0
           }
         }
       ]

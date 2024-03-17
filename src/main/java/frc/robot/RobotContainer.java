@@ -16,6 +16,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -29,6 +30,7 @@ import frc.robot.CommandBases.ElevatorWithSpeed;
 import frc.robot.CommandBases.FeederShot;
 import frc.robot.CommandBases.IntakeCommand;
 import frc.robot.CommandBases.PivotwithSpeed;
+import frc.robot.CommandBases.ShootCommand;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
@@ -84,10 +86,13 @@ public class RobotContainer {
 
 
   IntakeCommand intakecommand = new IntakeCommand(intake, feeder, led,pivot);
-  AutoPivotSub autoPivotSub = new AutoPivotSub(pivot);
+  //AutoPivotSub autoPivotSub = new AutoPivotSub(pivot);
   AutoShoot autoshoot = new AutoShoot(feeder, shooter);
   FeederShot feederShot = new FeederShot(feeder);
 
+  ShootCommand shootCommand = new ShootCommand(shooter,feeder,led,pivot);
+  
+  SequentialCommandGroup SHOOTAUTO = new SequentialCommandGroup(autoshoot,feederShot,new WaitCommand(.5));
 
   private double MaxSpeed = TunerConstants.kSpeedAt12VoltsMps; // kSpeedAt12VoltsMps desired top speed
   private double MaxAngularRate = 1.5 * Math.PI; // 3/4 of a rotation per second max angular velocity
@@ -165,6 +170,7 @@ public class RobotContainer {
 
 
 
+
 //OPERATOR CONTROLS
 
 //Shoot Command
@@ -189,11 +195,12 @@ elevator.setDefaultCommand(elevator.holdPosition());
 joystick.button(10).whileTrue(elevatorup);
 joystick.button(9).whileTrue(elevatordown);
 //joystick.button(12).onTrue(elevator.setUpPosition());
-joystick.button(12).onTrue(new ParallelCommandGroup(elevator.setUpPosition(),amppivot.withPosition(27.3)));
+joystick.button(12).onTrue(elevator.setUpPosition());
+  //new ParallelCommandGroup(elevator.setUpPosition(),amppivot.withPosition(27.3)));
 
 joystick.button(11).onTrue(elevator.setHomePosition());
 
-//Elevator
+//Climber
 climber.setDefaultCommand(climber.stop());
 joystick.button(3).whileTrue(climber.slowUp());
 //joystick.axisGreaterThan(3,0.9).onTrue(climber.setUpPosition());
@@ -204,20 +211,27 @@ joystick.button(3).whileTrue(climber.slowUp());
 }
 
   public RobotContainer() {
-    configureBindings();
 
 
   NamedCommands.registerCommand("setFieldRelative",drivetrain.runOnce(() ->  drivetrain.seedFieldRelative()));
   NamedCommands.registerCommand("startIntake", intakecommand);
-  NamedCommands.registerCommand("SubwooferPivot",autoPivotSub);
-  NamedCommands.registerCommand("StartShoot", autoshoot);
+  //NamedCommands.registerCommand("SubwooferPivot",autoPivotSub);
   NamedCommands.registerCommand("FeederShoot", feederShot);
   NamedCommands.registerCommand("AutoShoot",autoshoot );
+  NamedCommands.registerCommand("pivothold", pivot.runOnce(() -> pivot.setPosition(pivot.getPosition())));
 
-  NamedCommands.registerCommand("ShootSubwoofer", new SequentialCommandGroup(autoPivotSub,autoshoot,feederShot));
+  //12 feet - 37.84
+  //Middle note - 34.25
+  //121inch stage - 35.1
+  //69inch - 28.88 
+  NamedCommands.registerCommand("ShootSubwoofer", shootCommand);
+//SHOOTAUTO
+  //shootCommand
 //new WaitCommand(1),new ParallelCommandGroup(intake.withVelocity(0),feeder.withVelocity(0),shooter.withDisable())
   autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
   SmartDashboard.putData("Auto Mode", autoChooser);
+    configureBindings();
+    SmartDashboard.putData(CommandScheduler.getInstance());
 
   }
 

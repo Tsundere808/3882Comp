@@ -67,6 +67,11 @@ public Command highspeed()
   return run(() -> this.setVelocity(100));
 }
 
+public Command highspeedAuto()
+{
+  return runOnce(() -> this.setVelocity(100));
+}
+
 public Command midspeed()
 {
   return run(() -> this.setVelocity(50));
