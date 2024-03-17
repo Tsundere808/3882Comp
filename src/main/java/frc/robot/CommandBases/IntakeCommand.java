@@ -33,6 +33,7 @@ public class IntakeCommand extends Command{
     feeder.setVelocity(.32);
     intake.setVelocity(-50);
     pivot.intakePosition();
+    led.setRED();
     
   }
 
@@ -53,6 +54,7 @@ public class IntakeCommand extends Command{
      public void end(boolean interrupted) {
       feeder.setVelocity(0);
       intake.setVelocity(0);
+      pivot.setVelocity(0);
       led.setGREEN();
      }
 }

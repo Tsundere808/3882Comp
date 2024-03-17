@@ -160,7 +160,6 @@ public class RobotContainer {
        xbox.pov(180).whileTrue(pivotdown);
        //joystick.pov(90).onTrue(pivot.stop());
        xbox.y().onTrue(pivot.withPosition(24.96));
-
        xbox.b().onTrue(pivot.lightlightAutoAim(LimelightHelpers.getTY("limelight-lunas")));
 
 
