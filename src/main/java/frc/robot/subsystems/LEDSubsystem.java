@@ -64,9 +64,7 @@ public class LEDSubsystem implements Subsystem{
 
       public void setGREEN() {
         this.setRGB(0,255,0);
-
       }
-
       
       public void setYELLOW() {
         this.setRGB(255,255,0);
@@ -106,15 +104,19 @@ public class LEDSubsystem implements Subsystem{
         return runOnce(() -> this.setRGB(0, 0, 255));
     }
 
+    public Command setPink(Boolean check) {  
+      if(!check)
+        return runOnce(() -> this.setRGB(255,105,180));
+      else
+      {
+        return runOnce(() -> this.setRGB(255,255,0));
+      }
+      }
+
+
+
      public Command setGreenCommand() {
         return runOnce(() -> this.setGREEN());
     }
 
-     public Command setRainbow() {
-        return runOnce(() -> this.rainbow(0));
-    }
-
-    public Command setRainbowAni(double d) {
-        return runOnce(() -> this.rainbow((int) d));
-    }
 }

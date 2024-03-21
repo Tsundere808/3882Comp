@@ -154,6 +154,8 @@ public class RobotContainer {
 //Shooter
       shooter.setDefaultCommand(shooter.withDisable());
       xbox.leftTrigger().onTrue(shooter.highspeed());
+
+      xbox.rightTrigger().onTrue(intakecommand);
       //xbox.b().onTrue(shooter.slowspeed());
 
       
@@ -166,8 +168,7 @@ public class RobotContainer {
        //joystick.pov(90).onTrue(pivot.stop());
        xbox.y().onTrue(pivot.withPosition(24.96));
        xbox.b().onTrue(pivot.lightlightAutoAim(LimelightHelpers.getTY("limelight-lunas")));
-      
-
+       xbox.b().onTrue(led.setPink(LimelightHelpers.getTV("limelight-lunas")));
       SmartDashboard.putData("Autonomous Command", drivetrain.runOnce(() ->  drivetrain.seedFieldRelative()));
 
 

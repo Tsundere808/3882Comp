@@ -132,8 +132,9 @@ public Command withPositionAuto(double setPoint)
 }
 
 public Command lightlightAutoAim (double ty) {
-
+  //LimelightHelpers.getTV("limelight-lunas")
   return run(() -> this.setPosition(MathUtil.clamp((((this.getDistance(LimelightHelpers.getTY("limelight-lunas")) - 36.125) * 0.1194) + 25.66), 0.0, 37)));
+
 }
 
 public Command slowUp()

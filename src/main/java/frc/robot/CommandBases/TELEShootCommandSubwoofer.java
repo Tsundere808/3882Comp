@@ -15,32 +15,29 @@ import frc.robot.subsystems.Shooter.ShooterSubsystem;
 public class TELEShootCommandSubwoofer extends Command{
 
     private final FeederSubsystem feeder;
-    private final PivotSubsystem pivot;
     private final ShooterSubsystem shooter;
 
     private final LEDSubsystem led;
 
-    public TELEShootCommandSubwoofer(ShooterSubsystem shooter,FeederSubsystem feeder, LEDSubsystem led, PivotSubsystem pivot) {
+    public TELEShootCommandSubwoofer(ShooterSubsystem shooter,FeederSubsystem feeder, LEDSubsystem led) {
         this.shooter = shooter;
         this.feeder = feeder;
-        this.pivot = pivot;
         this.led = led;
-        addRequirements(pivot,shooter,feeder,led);
+        addRequirements(shooter,feeder,led);
       }
 
       @Override
   public void initialize() {
-    led.setYELLOW();
+    led.setBLUE();
     shooter.setVelocity(100);
-    pivot.subwooferPosition();    
   }
 
   @Override
   public void execute()
   {
     shooter.setVelocity(100);
-    if(shooter.getSpeed()  < -70 && pivot.getPosition() > 24){
-      led.setBLUE();
+    if(shooter.getSpeed()  < -70){
+      feeder.setVelocity(.32);
     }
   }
 
