@@ -12,7 +12,7 @@ import frc.robot.subsystems.Shooter.PivotSubsystem;
 import frc.robot.subsystems.Shooter.ShooterSubsystem;
 
 
-public class ShootCommand extends Command{
+public class AUTOShootCommandSubwoofer extends Command{
 
     private final FeederSubsystem feeder;
     private final PivotSubsystem pivot;
@@ -20,7 +20,7 @@ public class ShootCommand extends Command{
 
     private final LEDSubsystem led;
 
-    public ShootCommand(ShooterSubsystem shooter,FeederSubsystem feeder, LEDSubsystem led, PivotSubsystem pivot) {
+    public AUTOShootCommandSubwoofer(ShooterSubsystem shooter,FeederSubsystem feeder, LEDSubsystem led, PivotSubsystem pivot) {
         this.shooter = shooter;
         this.feeder = feeder;
         this.pivot = pivot;
@@ -30,18 +30,20 @@ public class ShootCommand extends Command{
 
       @Override
   public void initialize() {
-    led.setGREEN();
+    led.setYELLOW();
     shooter.setVelocity(100);
     pivot.subwooferPosition();    
+    //pivot.setPosition(25);
+
   }
 
   @Override
   public void execute()
   {
-    pivot.subwooferPosition();
     shooter.setVelocity(100);
     if(shooter.getSpeed()  < -70 && pivot.getPosition() > 24){
     feeder.setVelocity(.32);
+    led.setBLUE();
     }
   }
 
@@ -54,6 +56,8 @@ public class ShootCommand extends Command{
      public void end(boolean interrupted) {
       feeder.setVelocity(0);
       shooter.setVelocity(0);
+      
       led.setRED();
-     }
+     
+    }
 }

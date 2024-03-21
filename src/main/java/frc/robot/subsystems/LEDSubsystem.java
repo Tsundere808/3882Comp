@@ -67,6 +67,12 @@ public class LEDSubsystem implements Subsystem{
 
       }
 
+      
+      public void setYELLOW() {
+        this.setRGB(255,255,0);
+
+      }
+
 
       public void redPulse(){
         for (var i = 0; i < m_ledBuffer.getLength(); i++) {

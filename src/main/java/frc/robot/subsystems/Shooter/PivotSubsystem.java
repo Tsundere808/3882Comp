@@ -83,7 +83,7 @@ public void intakePosition()
 
 public void subwooferPosition()
 {
-  m_pidController.setReference(25, CANSparkMax.ControlType.kPosition);
+  m_pidController.setReference(25.0, CANSparkMax.ControlType.kPosition);
 }
 
 public void otherPositions()

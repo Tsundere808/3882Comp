@@ -18,19 +18,22 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.CommandBases.AMPPivotwithSpeed;
+import frc.robot.CommandBases.AUTOShootCommandIntakePos;
 import frc.robot.CommandBases.AutoPivotSub;
 import frc.robot.CommandBases.AutoShoot;
 import frc.robot.CommandBases.ElevatorWithSpeed;
 import frc.robot.CommandBases.FeederShot;
 import frc.robot.CommandBases.IntakeCommand;
 import frc.robot.CommandBases.PivotwithSpeed;
-import frc.robot.CommandBases.ShootCommand;
+import frc.robot.CommandBases.AUTOShootCommandSubwoofer;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
@@ -88,9 +91,11 @@ public class RobotContainer {
   IntakeCommand intakecommand = new IntakeCommand(intake, feeder, led,pivot);
   //AutoPivotSub autoPivotSub = new AutoPivotSub(pivot);
   AutoShoot autoshoot = new AutoShoot(feeder, shooter);
+  AUTOShootCommandIntakePos autoshootintakepos = new AUTOShootCommandIntakePos(shooter,feeder,led);
+
   FeederShot feederShot = new FeederShot(feeder);
 
-  ShootCommand shootCommand = new ShootCommand(shooter,feeder,led,pivot);
+  AUTOShootCommandSubwoofer shootCommand = new AUTOShootCommandSubwoofer(shooter,feeder,led,pivot);
   
   SequentialCommandGroup SHOOTAUTO = new SequentialCommandGroup(autoshoot,feederShot,new WaitCommand(.5));
 
@@ -161,7 +166,7 @@ public class RobotContainer {
        //joystick.pov(90).onTrue(pivot.stop());
        xbox.y().onTrue(pivot.withPosition(24.96));
        xbox.b().onTrue(pivot.lightlightAutoAim(LimelightHelpers.getTY("limelight-lunas")));
-
+      
 
       SmartDashboard.putData("Autonomous Command", drivetrain.runOnce(() ->  drivetrain.seedFieldRelative()));
 
@@ -217,7 +222,8 @@ joystick.button(3).whileTrue(climber.slowUp());
   //NamedCommands.registerCommand("SubwooferPivot",autoPivotSub);
   NamedCommands.registerCommand("FeederShoot", feederShot);
   NamedCommands.registerCommand("AutoShoot",autoshoot );
-  NamedCommands.registerCommand("pivothold", pivot.runOnce(() -> pivot.setPosition(pivot.getPosition())));
+  NamedCommands.registerCommand("PivotShot", autoshootintakepos);
+  NamedCommands.registerCommand("pivothold", new InstantCommand(() -> pivot.setPosition(pivot.getPosition())));
 
   //12 feet - 37.84
   //Middle note - 34.25

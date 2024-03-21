@@ -1,0 +1,68 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.22,
+      "y": 5.51
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "setFieldRelative"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoshootintakepos"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoshootintakepos"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "MidPickUp"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "startIntake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "MidShot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoshootintakepos"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

@@ -9,54 +9,52 @@ import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.Shooter.FeederSubsystem;
 import frc.robot.subsystems.Shooter.IntakeSubsystem;
 import frc.robot.subsystems.Shooter.PivotSubsystem;
+import frc.robot.subsystems.Shooter.ShooterSubsystem;
 
 
-public class IntakeCommand extends Command{
+public class AUTOShootCommandIntakePos extends Command{
 
-    private final IntakeSubsystem intake;
     private final FeederSubsystem feeder;
-    private final PivotSubsystem pivot;
+    private final ShooterSubsystem shooter;
 
     private final LEDSubsystem led;
 
-    public IntakeCommand(IntakeSubsystem intake,FeederSubsystem feeder, LEDSubsystem led, PivotSubsystem pivot) {
-        this.intake = intake;
+    public AUTOShootCommandIntakePos(ShooterSubsystem shooter,FeederSubsystem feeder, LEDSubsystem led) {
+        this.shooter = shooter;
         this.feeder = feeder;
-        this.pivot = pivot;
         this.led = led;
-        addRequirements(pivot,intake,feeder,led);
+        addRequirements,shooter,feeder,led);
       }
 
       @Override
   public void initialize() {
-    led.setRED();
-    feeder.setVelocity(.32);
-    intake.setVelocity(-50);
-    pivot.intakePosition();
-    led.setRED();
-    
+    led.setYELLOW();
+    shooter.setVelocity(100);
+    //pivot.setPosition(25);
+
   }
 
   @Override
   public void execute()
   {
+    shooter.setVelocity(100);
+    if(shooter.getSpeed()  < -70 ){
     feeder.setVelocity(.32);
-    intake.setVelocity(-50);
+    led.setBLUE();
+    }
   }
 
       @Override
       public boolean isFinished() {
-       return feeder.noteCheck();
+       return !feeder.noteCheck();
       }
 
      @Override
      public void end(boolean interrupted) {
       feeder.setVelocity(0);
-      intake.setVelocity(0);
-      pivot.setVelocity(0);
-      if(!interrupted)
-      {
-        led.setGREEN();
-      }
+      shooter.setVelocity(0);
+      
+      led.setRED();
+     
     }
 }
