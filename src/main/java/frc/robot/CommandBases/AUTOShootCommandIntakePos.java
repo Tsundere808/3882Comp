@@ -23,7 +23,7 @@ public class AUTOShootCommandIntakePos extends Command{
         this.shooter = shooter;
         this.feeder = feeder;
         this.led = led;
-        addRequirements,shooter,feeder,led);
+        addRequirements(shooter,feeder,led);
       }
 
       @Override
