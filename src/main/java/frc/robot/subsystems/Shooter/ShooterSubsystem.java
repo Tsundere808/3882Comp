@@ -5,6 +5,9 @@ import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,6 +25,20 @@ private final NeutralOut m_brake = new NeutralOut();
 
 TalonFXConfiguration shooterConfigs = new TalonFXConfiguration();
 
+private ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
+private GenericEntry shooterspeed =
+      tab.add("Top Shooter Speed", 0)
+         .getEntry();
+private GenericEntry shooterVoltage =
+      tab.add("Top Shooter Voltage", 0)
+         .getEntry();
+
+private GenericEntry bshooterspeed =
+      tab.add("Bottom Shooter Speed", 0)
+         .getEntry();
+private GenericEntry bshooterVoltage =
+      tab.add("Bottom Shooter Voltage", 0)
+         .getEntry();
 
 public ShooterSubsystem()
 {
@@ -101,7 +118,13 @@ public Command withDisable()
 @Override
 public void periodic() {
   // This method will be called once per scheduler run
-SmartDashboard.putNumber("Shooter speed", this.getSpeed());
+//SmartDashboard.putNumber("Shooter speed", this.getSpeed());
+
+shooterVoltage.setDouble(m_topsh.getMotorVoltage().getValue());
+shooterspeed.setDouble(m_topsh.getRotorVelocity().getValue());
+bshooterVoltage.setDouble(m_botsh.getMotorVoltage().getValue());
+bshooterspeed.setDouble(m_botsh.getRotorVelocity().getValue());
+
 }
 
 }

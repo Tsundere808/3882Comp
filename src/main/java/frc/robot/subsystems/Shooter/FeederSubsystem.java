@@ -6,8 +6,11 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix.motorcontrol.*;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -23,6 +26,18 @@ private final DigitalInput intakeLine;
 
 
  Encoder encoder;
+
+ private ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
+private GenericEntry shooterspeed =
+      tab.add("Feeder Speed", 0)
+         .getEntry();
+private GenericEntry shooterVoltage =
+      tab.add("Feeder Voltage", 0)
+         .getEntry();
+
+private GenericEntry feedercheck =
+      tab.add("Feeder Note Check", false)
+         .getEntry();
     
 public FeederSubsystem()
 {
@@ -80,7 +95,9 @@ public void periodic() {
 SmartDashboard.putBoolean("FEEDER NOTE CHECK", intakeLine.get());
 
 
-
+shooterVoltage.setDouble(m_feeder.getMotorOutputVoltage());
+shooterspeed.setDouble(m_feeder.getMotorOutputPercent());
+feedercheck.setBoolean(intakeLine.get());
 }
 
 

@@ -7,6 +7,9 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -19,6 +22,14 @@ private SparkPIDController c_pidController;
 private RelativeEncoder c_encoder;
 public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
 
+
+private ShuffleboardTab tab = Shuffleboard.getTab("Climber");
+private GenericEntry climberEncoder =
+      tab.add("Climber Encoder", 0)
+         .getEntry();
+private GenericEntry climberVoltage =
+      tab.add("Elevator Voltage", 0)
+         .getEntry();
 
 public ClimberSubsystem()
 {
@@ -77,6 +88,9 @@ public Command withVelocity(double setPoint)
   return runOnce(() -> this.setVelocity(setPoint));
 }
 
+/*
+ * .8
+ */
 public Command slowUp()
 {
   return run(() -> this.setVelocity(.8));
@@ -123,6 +137,8 @@ public void periodic() {
 // This method will be called once per scheduler run
 SmartDashboard.putNumber("Cliber Pivot Encoder", c_encoder.getPosition());
 
+climberEncoder.setDouble(c_encoder.getPosition());
+climberVoltage.setDouble(m_climber.getAppliedOutput());
 }
 
 }

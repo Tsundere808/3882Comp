@@ -7,6 +7,9 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,6 +23,13 @@ private SparkPIDController l_pidController,r_pidController;
 private RelativeEncoder l_encoder;
 public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
 
+private ShuffleboardTab tab = Shuffleboard.getTab("Elevator");
+private GenericEntry elevatoEncoder =
+      tab.add("Elevator Encoder", 0)
+         .getEntry();
+private GenericEntry elevatoVoltage =
+      tab.add("Elevator Voltage", 0)
+         .getEntry();
 
 public ElevatorSubsystem()
 {
@@ -37,7 +47,7 @@ public ElevatorSubsystem()
    l_encoder = m_leftElevator.getEncoder();
 
    // PID coefficients
-   kP = 0.02; 
+   kP = 0.0235; 
    kI = 0;
    kD = 0; 
    kIz = 0; 
@@ -61,7 +71,6 @@ public ElevatorSubsystem()
 public void setVelocity(double setPoint)
 {
   m_leftElevator.set(-setPoint);
-       SmartDashboard.putNumber("Right Drive Encoder", l_encoder.getPosition());
   //l_pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
 }
 
@@ -138,8 +147,12 @@ return ((l_encoder.getPosition() > -1.5 && m_leftElevator.getAppliedOutput() > 0
 @Override
 public void periodic() {
   // This method will be called once per scheduler run
-SmartDashboard.putNumber("Elevator Encoder", l_encoder.getPosition());
-SmartDashboard.putNumber("Elevator Appied Voltage", m_leftElevator.getAppliedOutput() );
+  
+
+elevatoEncoder.setDouble(l_encoder.getPosition());
+elevatoVoltage.setDouble(m_leftElevator.getAppliedOutput());
+//SmartDashboard.putNumber("Elevator Encoder", l_encoder.getPosition());
+//SmartDashboard.putNumber("Elevator Appied Voltage", m_leftElevator.getAppliedOutput() );
 
 }
 

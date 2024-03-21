@@ -6,6 +6,9 @@ import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,6 +21,15 @@ private SparkPIDController m_pidController;
 private RelativeEncoder m_encoder;
 public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
 
+
+private ShuffleboardTab tab = Shuffleboard.getTab("AMP");
+private GenericEntry aPivotEncoder =
+      tab.add("aPivot Encoder", 0)
+         .getEntry();
+
+private GenericEntry aPivotVoltage =
+      tab.add("aPivot aPivotVoltage", 0)
+         .getEntry();
 
 public AMPPivotSubsystem()
 {
@@ -34,7 +46,7 @@ public AMPPivotSubsystem()
    m_encoder = m_pviot.getEncoder();
 
    // PID coefficients
-   kP = 0.4; 
+   kP = 0.43; 
    kI = 1e-4;
    kD = 1; 
    kIz = 0; 
@@ -127,6 +139,11 @@ return ((m_encoder.getPosition() < 1 && m_pviot.getAppliedOutput() < 0) || (m_en
  @Override
 public void periodic() {
   // This method will be called once per scheduler run
+
+
+aPivotEncoder.setDouble( m_encoder.getPosition());
+aPivotVoltage.setDouble(m_pviot.getAppliedOutput());
+
 SmartDashboard.putNumber("AMP Pivot Encoder", m_encoder.getPosition());
 SmartDashboard.putNumber("AMP Pivot Appied Voltage", m_pviot.getAppliedOutput() );
 

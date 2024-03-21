@@ -10,6 +10,9 @@ import java.util.function.BooleanSupplier;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -24,6 +27,26 @@ private CANSparkMax m_pviot;
 private SparkPIDController m_pidController;
 private RelativeEncoder m_encoder;
 public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput, maxRPM;
+
+ private ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
+private GenericEntry shooterspeed =
+      tab.add("Pivot Position", 0)
+         .getEntry();
+private GenericEntry shooterVoltage =
+      tab.add("Pivot Voltage", 0)
+         .getEntry();
+
+private GenericEntry distance =
+      tab.add("Distance", 0)
+         .getEntry();
+private GenericEntry calcdistoca =
+      tab.add("Calculate Distance", 0)
+         .getEntry();
+
+private GenericEntry seestarger =
+      tab.add("Sees Target", false)
+         .getEntry();
+
 
 
 public PivotSubsystem()
@@ -152,6 +175,16 @@ SmartDashboard.putNumber("Shooter Pivot Appied Voltage", m_pviot.getAppliedOutpu
 
 SmartDashboard.putNumber("distance", this.getDistance(LimelightHelpers.getTY("limelight-lunas")));
 SmartDashboard.putNumber("calculated encoder value", (MathUtil.clamp((((this.getDistance(LimelightHelpers.getTY("limelight-lunas")) - 36.125) * 0.1194) + 25.66), 0.0, 37))); //24.96
+
+SmartDashboard.putBoolean("SEES TARGET", LimelightHelpers.getTV("limelight-lunas"));
+
+shooterVoltage.setDouble(m_pviot.getAppliedOutput());
+shooterspeed.setDouble(m_encoder.getPosition());
+
+distance.setDouble(LimelightHelpers.getTY("limelight-lunas"));
+calcdistoca.setDouble(MathUtil.clamp((((this.getDistance(LimelightHelpers.getTY("limelight-lunas")) - 36.125) * 0.1194) + 25.66), 0.0, 37));
+
+seestarger.setBoolean(LimelightHelpers.getTV("limelight-lunas"));
 }
 
 }

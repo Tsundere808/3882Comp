@@ -207,6 +207,7 @@ joystick.button(11).onTrue(elevator.setHomePosition());
 //Climber
 climber.setDefaultCommand(climber.stop());
 joystick.button(3).whileTrue(climber.slowUp());
+
 //joystick.axisGreaterThan(3,0.9).onTrue(climber.setUpPosition());
 //joystick.axisLessThan(3,-0.9).onTrue(climber.ClimbedPosition());
 

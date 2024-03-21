@@ -6,7 +6,10 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix.motorcontrol.*;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.generated.Constants.AMPFeederConstants;
@@ -20,6 +23,16 @@ private final VelocityVoltage m_voltageVelocity = new VelocityVoltage(0, 0, true
 private final NeutralOut m_brake = new NeutralOut();
 
  Encoder encoder;
+
+
+ private ShuffleboardTab tab = Shuffleboard.getTab("AMP");
+private GenericEntry aFeederEncoder =
+      tab.add("aFeeder Speed", 0)
+         .getEntry();
+
+private GenericEntry aFeederVoltage =
+      tab.add("aFeeder aPivotVoltage", 0)
+         .getEntry();
     
 public AMPFeederSubsystem()
 {
@@ -66,6 +79,13 @@ public Command withVelocity(double desiredRotationsPerSecond)
 public Command withDisable()
 {
     return run(() -> this.disable());
+}
+
+@Override
+public void periodic()
+{
+  aFeederVoltage.setDouble(m_feeder.getMotorOutputVoltage());
+  aFeederEncoder.setDouble(m_feeder.getMotorOutputPercent());
 }
 
 }
