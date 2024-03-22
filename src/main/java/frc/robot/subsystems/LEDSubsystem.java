@@ -106,9 +106,11 @@ public class LEDSubsystem implements Subsystem{
 
     public Command setPink(Boolean check) {  
       if(!check)
+      //pink
         return runOnce(() -> this.setRGB(255,105,180));
       else
       {
+        //yellow
         return runOnce(() -> this.setRGB(255,255,0));
       }
       }

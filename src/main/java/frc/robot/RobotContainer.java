@@ -33,6 +33,7 @@ import frc.robot.CommandBases.ElevatorWithSpeed;
 import frc.robot.CommandBases.FeederShot;
 import frc.robot.CommandBases.IntakeCommand;
 import frc.robot.CommandBases.PivotwithSpeed;
+import frc.robot.CommandBases.TELEShootCommand;
 import frc.robot.CommandBases.AUTOShootCommandSubwoofer;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -87,7 +88,7 @@ public class RobotContainer {
   //Commands
   private final LEDSubsystem led = new LEDSubsystem(0);
 
-
+  TELEShootCommand  teleShootCommand = new TELEShootCommand(shooter,feeder,led);
   IntakeCommand intakecommand = new IntakeCommand(intake, feeder, led,pivot);
   //AutoPivotSub autoPivotSub = new AutoPivotSub(pivot);
   AutoShoot autoshoot = new AutoShoot(feeder, shooter);
@@ -155,7 +156,7 @@ public class RobotContainer {
       shooter.setDefaultCommand(shooter.withDisable());
       xbox.leftTrigger().onTrue(shooter.highspeed());
 
-      xbox.rightTrigger().onTrue(intakecommand);
+      xbox.rightTrigger().onTrue(teleShootCommand);
       //xbox.b().onTrue(shooter.slowspeed());
 
       
@@ -171,7 +172,7 @@ public class RobotContainer {
        xbox.b().onTrue(led.setPink(LimelightHelpers.getTV("limelight-lunas")));
       SmartDashboard.putData("Autonomous Command", drivetrain.runOnce(() ->  drivetrain.seedFieldRelative()));
 
-
+      xbox.pov(90).onTrue(drivetrain.runOnce(() ->  drivetrain.seedFieldRelative()));
 
 
 

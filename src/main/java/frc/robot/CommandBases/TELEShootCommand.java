@@ -12,14 +12,14 @@ import frc.robot.subsystems.Shooter.PivotSubsystem;
 import frc.robot.subsystems.Shooter.ShooterSubsystem;
 
 
-public class TELEShootCommandSubwoofer extends Command{
+public class TELEShootCommand extends Command{
 
     private final FeederSubsystem feeder;
     private final ShooterSubsystem shooter;
 
     private final LEDSubsystem led;
 
-    public TELEShootCommandSubwoofer(ShooterSubsystem shooter,FeederSubsystem feeder, LEDSubsystem led) {
+    public TELEShootCommand(ShooterSubsystem shooter,FeederSubsystem feeder, LEDSubsystem led) {
         this.shooter = shooter;
         this.feeder = feeder;
         this.led = led;

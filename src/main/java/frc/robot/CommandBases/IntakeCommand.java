@@ -3,6 +3,7 @@ package frc.robot.CommandBases;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.LimelightHelpers;
 import frc.robot.generated.Constants.FeederConstants;
 import frc.robot.generated.Constants.IntakeConstants;
 import frc.robot.subsystems.LEDSubsystem;
@@ -57,6 +58,9 @@ public class IntakeCommand extends Command{
       if(!interrupted)
       {
         led.setGREEN();
+        LimelightHelpers.setLEDMode_ForceBlink("limelight-lunas");
       }
+        LimelightHelpers.setLEDMode_ForceOff("limelight-lunas");
+
     }
 }
