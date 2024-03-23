@@ -90,17 +90,20 @@ return m_pviot.getEncoder().getPosition();
 
 public void setVelocity(double setPoint)
 {
+  LimelightHelpers.setLEDMode_ForceOff("limelight-lunas");
   //m_pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
 m_pviot.set(setPoint);
 }
 
 public void setPosition(double setPoint)
 {
+  LimelightHelpers.setLEDMode_ForceOff("limelight-lunas");
   m_pidController.setReference(setPoint, CANSparkMax.ControlType.kPosition);
 }
 
 public void intakePosition()
 {
+  LimelightHelpers.setLEDMode_ForceOff("limelight-lunas");
   m_pidController.setReference(10.6, CANSparkMax.ControlType.kPosition);
 }
 
@@ -116,6 +119,7 @@ public void otherPositions()
 
 public double getDistance(double ty)
 {
+  LimelightHelpers.setLEDMode_ForceOff("limelight-lunas");
     return ((LimeLightConstants.goalHeightInches - LimeLightConstants.limelightLensHeightInches) / 
     Math.tan(Math.toRadians(LimeLightConstants.limelightMountAngledegrees) + Math.toRadians(ty)));
 
@@ -186,6 +190,7 @@ distance.setDouble(LimelightHelpers.getTY("limelight-lunas"));
 calcdistoca.setDouble(MathUtil.clamp((((this.getDistance(LimelightHelpers.getTY("limelight-lunas")) - 36.125) * 0.1194) + 25.66), 0.0, 37));
 
 seestarger.setBoolean(LimelightHelpers.getTV("limelight-lunas"));
+
 }
 
 }

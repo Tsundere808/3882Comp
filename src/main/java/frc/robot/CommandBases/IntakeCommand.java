@@ -60,7 +60,6 @@ public class IntakeCommand extends Command{
         led.setGREEN();
         LimelightHelpers.setLEDMode_ForceBlink("limelight-lunas");
       }
-        LimelightHelpers.setLEDMode_ForceOff("limelight-lunas");
 
     }
 }
