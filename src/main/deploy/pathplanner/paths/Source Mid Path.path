@@ -3,48 +3,54 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.81,
-        "y": 4.35
+        "x": 7.900205219153025,
+        "y": 0.7303644500527445
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.06,
-        "y": 3.91698729810778
+        "x": 8.900205219153026,
+        "y": 0.7303644500527443
       },
       "isLocked": false,
-      "linkedName": "LEFTSTART"
+      "linkedName": "LEFTMID"
     },
     {
       "anchor": {
-        "x": 1.356139746680443,
-        "y": 2.483239130179329
+        "x": 3.8004261061902915,
+        "y": 2.0158058821455733
       },
       "prevControl": {
-        "x": 1.333818424415962,
-        "y": 2.982740640259494
+        "x": 5.658536468980937,
+        "y": 1.2759235403573563
       },
       "nextControl": {
-        "x": 1.3895060345458776,
-        "y": 1.736575873537276
+        "x": 3.33589851549263,
+        "y": 2.2007764675926276
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.943465151461739,
-        "y": 1.3633469734317891
+        "x": 0.81,
+        "y": 4.35
       },
       "prevControl": {
-        "x": 2.443465151461739,
-        "y": 1.3633469734317891
+        "x": 0.56,
+        "y": 4.783012701892219
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Source Leave"
+      "linkedName": "LEFTSTART"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.95,
+      "rotationDegrees": -60.0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {

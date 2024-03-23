@@ -35,5 +35,6 @@ public class ElevatorWithSpeed extends Command{
      @Override
      public void end(boolean interrupted) {
       elevator.setVelocity(0);
+      elevator.setPosition(elevator.getEncoder());
      }
 }

@@ -47,7 +47,7 @@ public ElevatorSubsystem()
    l_encoder = m_leftElevator.getEncoder();
 
    // PID coefficients
-   kP = 0.0235; 
+   kP = 0.435; 
    kI = 0;
    kD = 0; 
    kIz = 0; 
@@ -74,7 +74,7 @@ public void setVelocity(double setPoint)
   //l_pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
 }
 
-private void setPosition(double setPoint)
+public void setPosition(double setPoint)
 {
   l_pidController.setReference(setPoint, CANSparkMax.ControlType.kPosition);
 }

@@ -77,8 +77,8 @@ public class RobotContainer {
   //ELEVATOR
   public final ElevatorSubsystem elevator = new ElevatorSubsystem();
 
-  public final ElevatorWithSpeed elevatorup = new ElevatorWithSpeed(elevator, .1);
-  public final ElevatorWithSpeed elevatordown = new ElevatorWithSpeed(elevator, -.1);
+  //public final ElevatorWithSpeed elevatorup = new ElevatorWithSpeed(elevator, .1);
+  //public final ElevatorWithSpeed elevatordown = new ElevatorWithSpeed(elevator, -.1);
 
   //AMPFEEDER
   public final AMPFeederSubsystem ampfeeder = new AMPFeederSubsystem();
@@ -204,13 +204,14 @@ joystick.button(8).onTrue(amppivot.withPosition(3)); //home
 //Elevator
 ////////////////////////
 elevator.setDefaultCommand(elevator.holdPosition());
-joystick.button(10).whileTrue(elevatorup);
-joystick.button(9).whileTrue(elevatordown);
+//joystick.button(10).whileTrue(elevatorup);
+//joystick.button(9).whileTrue(elevatordown);
 //joystick.button(12).onTrue(elevator.setUpPosition());
 joystick.button(12).onTrue(elevator.setUpPosition());
   //new ParallelCommandGroup(elevator.setUpPosition(),amppivot.withPosition(27.3)));
-
 joystick.button(11).onTrue(elevator.setHomePosition());
+joystick.button(9).whileTrue(new ElevatorWithSpeed(elevator, joystick.getYChannel()));
+
 
 //Climber
 climber.setDefaultCommand(climber.stop());

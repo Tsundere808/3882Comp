@@ -28,6 +28,18 @@
           "data": {
             "name": "PivotShot"
           }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 8.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AMP LEAVE"
+          }
         }
       ]
     }
