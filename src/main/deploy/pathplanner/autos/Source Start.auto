@@ -65,6 +65,18 @@
           "data": {
             "pathName": "Source Start Leave"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Source 2nd Shot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "PivotShot"
+          }
         }
       ]
     }

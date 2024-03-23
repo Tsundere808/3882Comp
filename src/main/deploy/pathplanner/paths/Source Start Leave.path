@@ -16,40 +16,40 @@
     },
     {
       "anchor": {
-        "x": 1.356139746680443,
-        "y": 2.483239130179329
+        "x": 5.597042305195722,
+        "y": 1.6913298024126904
       },
       "prevControl": {
-        "x": 1.333818424415962,
-        "y": 2.982740640259494
+        "x": 5.100423119460219,
+        "y": 1.749376200745412
       },
       "nextControl": {
-        "x": 1.3895060345458776,
-        "y": 1.736575873537276
+        "x": 6.09366149093123,
+        "y": 1.6332834040799682
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.943465151461739,
-        "y": 1.3633469734317891
+        "x": 7.917540773353152,
+        "y": 2.4246073183504397
       },
       "prevControl": {
-        "x": 2.443465151461739,
-        "y": 1.3633469734317891
+        "x": 7.417540773353152,
+        "y": 2.4246073183504397
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Source Leave"
+      "linkedName": "Source Second Mid"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 3.5,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.1138392647155666,
-        "y": 6.601504561033814
+        "x": 7.917540773353152,
+        "y": 2.4246073183504397
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.2138392647155667,
-        "y": 6.601504561033814
+        "x": 8.917540773353153,
+        "y": 2.4246073183504393
       },
       "isLocked": false,
-      "linkedName": "AMPSTART"
+      "linkedName": "Source Second Mid"
     },
     {
       "anchor": {
-        "x": 1.11,
-        "y": 6.6
+        "x": 5.476376384851536,
+        "y": 1.8027137288842467
       },
       "prevControl": {
-        "x": 1.01,
-        "y": 6.6
+        "x": 6.454752235519805,
+        "y": 1.5958787830236862
+      },
+      "nextControl": {
+        "x": 4.498000534183267,
+        "y": 2.0095486747448077
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 0.81,
+        "y": 4.35
+      },
+      "prevControl": {
+        "x": -0.18999999999999995,
+        "y": 4.35
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "LEFTSTART"
     }
   ],
   "rotationTargets": [],
@@ -39,7 +55,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 60.0,
+    "rotation": -60.0,
     "rotateFast": false
   },
   "reversed": false,
