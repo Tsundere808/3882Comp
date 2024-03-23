@@ -43,13 +43,13 @@ private GenericEntry bshooterVoltage =
 public ShooterSubsystem()
 {
        /* Voltage-based velocity requires a feed forward to account for the back-emf of the motor */
-       shooterConfigs.Slot0.kP = 0.11; // An error of 1 rotation per second results in 2V output
+       shooterConfigs.Slot0.kP = 0.6; // An error of 1 rotation per second results in 2V output
        shooterConfigs.Slot0.kI = 0.5; // An error of 1 rotation per second increases output by 0.5V every second
        shooterConfigs.Slot0.kD = 0.0001; // A change of 1 rotation per second squared results in 0.01 volts output
        shooterConfigs.Slot0.kV = 0.12; // Falcon 500 is a 500kV motor, 500rpm per V = 8.333 rps per V, 1/8.33 = 0.12 volts / Rotation per second
        // Peak output of 8 volts
-       shooterConfigs.Voltage.PeakForwardVoltage = 8;
-       shooterConfigs.Voltage.PeakReverseVoltage = -8;
+       shooterConfigs.Voltage.PeakForwardVoltage = 13;
+       shooterConfigs.Voltage.PeakReverseVoltage = -13;
 
        m_topsh.getConfigurator().apply(shooterConfigs);
        m_botsh.getConfigurator().apply(shooterConfigs);
@@ -119,6 +119,7 @@ public Command withDisable()
 public void periodic() {
   // This method will be called once per scheduler run
 //SmartDashboard.putNumber("Shooter speed", this.getSpeed());
+
 
 shooterVoltage.setDouble(m_topsh.getMotorVoltage().getValue());
 shooterspeed.setDouble(m_topsh.getRotorVelocity().getValue());

@@ -32,6 +32,7 @@ import frc.robot.CommandBases.AutoShoot;
 import frc.robot.CommandBases.ElevatorWithSpeed;
 import frc.robot.CommandBases.FeederShot;
 import frc.robot.CommandBases.IntakeCommand;
+import frc.robot.CommandBases.IntakeCommandAuto;
 import frc.robot.CommandBases.PivotwithSpeed;
 import frc.robot.CommandBases.TELEShootCommand;
 import frc.robot.CommandBases.AUTOShootCommandSubwoofer;
@@ -45,6 +46,7 @@ import frc.robot.subsystems.Shooter.FeederSubsystem;
 import frc.robot.subsystems.Shooter.IntakeSubsystem;
 import frc.robot.subsystems.Shooter.PivotSubsystem;
 import frc.robot.subsystems.Shooter.ShooterSubsystem;
+import edu.wpi.first.cameraserver.CameraServer;
 
 public class RobotContainer {
 
@@ -68,8 +70,8 @@ public class RobotContainer {
   //AMPPivot
   public final AMPPivotSubsystem amppivot = new AMPPivotSubsystem();
 
-  public final AMPPivotwithSpeed amppivotup = new AMPPivotwithSpeed(amppivot,.1);
-  public final AMPPivotwithSpeed amppivotdown = new AMPPivotwithSpeed(amppivot,-.1);
+  public final AMPPivotwithSpeed amppivotup = new AMPPivotwithSpeed(amppivot,.27);
+  public final AMPPivotwithSpeed amppivotdown = new AMPPivotwithSpeed(amppivot,-.27);
 
 
   //ELEVATOR
@@ -90,6 +92,8 @@ public class RobotContainer {
 
   TELEShootCommand  teleShootCommand = new TELEShootCommand(shooter,feeder,led);
   IntakeCommand intakecommand = new IntakeCommand(intake, feeder, led,pivot);
+  IntakeCommandAuto intakecommandAuto = new IntakeCommandAuto(intake, feeder, led,pivot);
+
   //AutoPivotSub autoPivotSub = new AutoPivotSub(pivot);
   AutoShoot autoshoot = new AutoShoot(feeder, shooter);
   AUTOShootCommandIntakePos autoshootintakepos = new AUTOShootCommandIntakePos(shooter,feeder,led);
@@ -154,7 +158,7 @@ public class RobotContainer {
       
 //Shooter
       shooter.setDefaultCommand(shooter.withDisable());
-      xbox.leftTrigger().onTrue(shooter.highspeed());
+      //xbox.leftTrigger().onTrue(shooter.highspeed());
 
       xbox.rightTrigger().onTrue(teleShootCommand);
       //xbox.b().onTrue(shooter.slowspeed());
@@ -192,7 +196,9 @@ amppivot.setDefaultCommand(amppivot.holdPosition());
 joystick.pov(180).whileTrue(amppivotup);
 joystick.pov(0).whileTrue(amppivotdown);
 
-joystick.button(7).onTrue(amppivot.withPosition(44));//intake position
+joystick.button(7).onTrue(amppivot.withPosition(48));//intake position
+joystick.button(9).onTrue(amppivot.withPosition(34));//intake position
+
 joystick.button(8).onTrue(amppivot.withPosition(3)); //home 
 
 //Elevator
@@ -221,12 +227,13 @@ joystick.button(3).whileTrue(climber.slowUp());
 
 
   NamedCommands.registerCommand("setFieldRelative",drivetrain.runOnce(() ->  drivetrain.seedFieldRelative()));
-  NamedCommands.registerCommand("startIntake", intakecommand);
+  NamedCommands.registerCommand("startIntake", intakecommandAuto);
   //NamedCommands.registerCommand("SubwooferPivot",autoPivotSub);
   NamedCommands.registerCommand("FeederShoot", feederShot);
   NamedCommands.registerCommand("AutoShoot",autoshoot );
-  NamedCommands.registerCommand("PivotShot", autoshootintakepos);
-  NamedCommands.registerCommand("pivothold", new InstantCommand(() -> pivot.setPosition(pivot.getPosition())));
+  //NamedCommands.registerCommand("PivotShot", autoshootintakepos);
+  NamedCommands.registerCommand("PivotShot", teleShootCommand);
+  //NamedCommands.registerCommand("pivotaim", new InstantCommand(() -> pivot.setPosition(24.96)));
 
   //12 feet - 37.84
   //Middle note - 34.25

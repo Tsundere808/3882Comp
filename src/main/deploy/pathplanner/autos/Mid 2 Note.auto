@@ -20,29 +20,29 @@
         {
           "type": "named",
           "data": {
-            "name": "autoshootintakepos"
+            "name": "startIntake"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "autoshootintakepos"
+            "name": "PivotShot"
           }
         },
         {
-          "type": "deadline",
+          "type": "parallel",
           "data": {
             "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "MidPickUp"
-                }
-              },
               {
                 "type": "named",
                 "data": {
                   "name": "startIntake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "MidPickUp"
                 }
               }
             ]
@@ -57,7 +57,7 @@
         {
           "type": "named",
           "data": {
-            "name": "autoshootintakepos"
+            "name": "PivotShot"
           }
         }
       ]

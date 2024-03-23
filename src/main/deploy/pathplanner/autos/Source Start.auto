@@ -8,19 +8,31 @@
         {
           "type": "named",
           "data": {
-            "name": "ShootSubwoofer"
+            "name": "setFieldRelative"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LEFTSTART SHOT"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "pivothold"
+            "name": "startIntake"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ShootSubwoofer"
+            "name": "PivotShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Source Start Leave"
           }
         }
       ]

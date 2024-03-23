@@ -6,6 +6,7 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix.motorcontrol.*;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -23,6 +24,8 @@ private final WPI_TalonSRX  m_feeder;
 private final VelocityVoltage m_voltageVelocity = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
 
 private final DigitalInput intakeLine;
+
+private   Debouncer m_debouncer = new Debouncer(0.2, Debouncer.DebounceType.kBoth);
 
 
  Encoder encoder;
@@ -50,7 +53,7 @@ public FeederSubsystem()
 
 public boolean noteCheck()
 {
-  return intakeLine.get();
+  return m_debouncer.calculate(intakeLine.get());
 }
 
 public void disable()
@@ -63,6 +66,7 @@ public void setVelocity(double desiredRotationsPerSecond)
     //m_feeder.setControl(m_voltageVelocity.withVelocity(desiredRotationsPerSecond));
     m_feeder.set(desiredRotationsPerSecond);
   }
+
 
 public Command highspeed()
 {

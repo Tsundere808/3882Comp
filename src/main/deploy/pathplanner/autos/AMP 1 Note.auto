@@ -1,12 +1,6 @@
 {
   "version": 1.0,
-  "startingPose": {
-    "position": {
-      "x": 0.81,
-      "y": 4.35
-    },
-    "rotation": 0
-  },
+  "startingPose": null,
   "command": {
     "type": "sequential",
     "data": {
@@ -20,25 +14,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "LEFTSTART SHOT"
+            "pathName": "Right Start"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ShootSubwoofer"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
+            "name": "startIntake"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "pivothold"
+            "name": "PivotShot"
           }
         }
       ]

@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.4924744440236215,
-      "y": 5.511817049731372
+      "x": 1.22,
+      "y": 5.51
     },
     "rotation": 0
   },
@@ -14,7 +14,19 @@
         {
           "type": "named",
           "data": {
-            "name": "ShootSubwoofer"
+            "name": "setFieldRelative"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "startIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "PivotShot"
           }
         },
         {
@@ -22,15 +34,15 @@
           "data": {
             "commands": [
               {
-                "type": "path",
-                "data": {
-                  "pathName": "MidPickUp"
-                }
-              },
-              {
                 "type": "named",
                 "data": {
                   "name": "startIntake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "MidPickUp"
                 }
               }
             ]
@@ -45,7 +57,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ShootSubwoofer"
+            "name": "PivotShot"
           }
         },
         {
@@ -53,15 +65,15 @@
           "data": {
             "commands": [
               {
-                "type": "path",
-                "data": {
-                  "pathName": "AmpPickup"
-                }
-              },
-              {
                 "type": "named",
                 "data": {
                   "name": "startIntake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "AmpPickup"
                 }
               }
             ]
@@ -76,7 +88,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ShootSubwoofer"
+            "name": "PivotShot"
           }
         },
         {
@@ -107,7 +119,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ShootSubwoofer"
+            "name": "PivotShot"
           }
         }
       ]

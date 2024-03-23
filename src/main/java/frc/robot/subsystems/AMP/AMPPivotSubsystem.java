@@ -46,7 +46,7 @@ public AMPPivotSubsystem()
    m_encoder = m_pviot.getEncoder();
 
    // PID coefficients
-   kP = 0.43; 
+   kP = 0.42; 
    kI = 1e-4;
    kD = 1; 
    kIz = 0; 

@@ -2,6 +2,7 @@ package frc.robot.CommandBases;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.generated.Constants.FeederConstants;
 import frc.robot.generated.Constants.IntakeConstants;
@@ -17,6 +18,8 @@ public class TELEShootCommand extends Command{
     private final FeederSubsystem feeder;
     private final ShooterSubsystem shooter;
 
+    private final Timer timer = new Timer();
+
     private final LEDSubsystem led;
 
     public TELEShootCommand(ShooterSubsystem shooter,FeederSubsystem feeder, LEDSubsystem led) {
@@ -30,6 +33,7 @@ public class TELEShootCommand extends Command{
   public void initialize() {
     led.setBLUE();
     shooter.setVelocity(100);
+    timer.reset();
   }
 
   @Override
@@ -38,12 +42,17 @@ public class TELEShootCommand extends Command{
     shooter.setVelocity(100);
     if(shooter.getSpeed()  < -70){
       feeder.setVelocity(.32);
+      timer.start();
+
     }
   }
 
       @Override
       public boolean isFinished() {
-       return !feeder.noteCheck();
+        if(timer.get() > 1.4){
+        return true;
+        }
+        return false;
       }
 
      @Override
