@@ -127,13 +127,13 @@ public class RobotContainer {
 
   private void configureBindings() {
     drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
-        drivetrain.applyRequest(() -> drive.withVelocityX(xbox.getLeftY() * MaxSpeed) // Drive forward with
+        drivetrain.applyRequest(() -> drive.withVelocityX(-xbox.getLeftY() * MaxSpeed) // Drive forward with
                                                                                            // negative Y (forward)
-            .withVelocityY(xbox.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+            .withVelocityY(-xbox.getLeftX() * MaxSpeed) // Drive left with negative X (left)
             .withRotationalRate(-xbox.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
         ));
 
-      xbox.x().onTrue( drivetrain.applyRequest(() -> robotdrive.withVelocityX(xbox.getLeftY() * MaxSpeed) // Drive forward with
+      xbox.x().toggleOnTrue( drivetrain.applyRequest(() -> robotdrive.withVelocityX(xbox.getLeftY() * MaxSpeed) // Drive forward with
                                                                                            // negative Y (forward)
             .withVelocityY(xbox.getLeftX() * MaxSpeed) // Drive left with negative X (left)
             .withRotationalRate(-xbox.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
