@@ -3,44 +3,44 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.41,
-        "y": 5.53
+        "x": 2.76817768344908,
+        "y": 7.576313895213793
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.51,
-        "y": 5.53
+        "x": 3.76817768344908,
+        "y": 7.576313895213793
       },
       "isLocked": false,
-      "linkedName": "MidShot"
+      "linkedName": "AMP LEAVE POINT"
     },
     {
       "anchor": {
-        "x": 2.756752180171027,
-        "y": 6.824272413976926
+        "x": 8.28973292584782,
+        "y": 7.410764619868505
       },
       "prevControl": {
-        "x": 2.656752180171027,
-        "y": 6.824272413976926
+        "x": 7.2897329258478205,
+        "y": 7.410764619868505
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "AmpPickup"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 1.0,
+    "maxVelocity": 7.0,
+    "maxAcceleration": 7.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 45.00000000000016,
-    "rotateFast": true
+    "rotation": 0,
+    "rotateFast": false
   },
   "reversed": false,
   "folder": null,

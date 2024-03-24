@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 1.41,
-        "y": 5.53
+        "x": 2.5803942965910625,
+        "y": 4.39239001934794
       },
       "prevControl": {
-        "x": 1.3099999999999998,
-        "y": 5.53
+        "x": 2.5037898522791644,
+        "y": 4.456668780316594
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "MidShot"
+      "linkedName": "StagePickup"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.5,
-    "maxAcceleration": 3.5,
+    "maxAcceleration": 3.6,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

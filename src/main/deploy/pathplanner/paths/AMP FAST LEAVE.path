@@ -3,52 +3,52 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.9639507427148555,
-        "y": 2.443171306092137
+        "x": 1.1138392647155666,
+        "y": 6.601504561033814
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.611234975556371,
-        "y": 2.1554294960441776
+        "x": 2.8774181005152135,
+        "y": 7.511139960551526
       },
-      "isLocked": false,
-      "linkedName": null
+      "isLocked": true,
+      "linkedName": "AMPSTART"
     },
     {
       "anchor": {
-        "x": 5.912630096865133,
-        "y": 1.654201826922172
+        "x": 4.743098868913788,
+        "y": 7.418320021825229
       },
       "prevControl": {
-        "x": 7.119289300306997,
-        "y": 1.496407931087466
+        "x": 3.1750163029470553,
+        "y": 7.332788245499772
       },
       "nextControl": {
-        "x": 2.9086903962160515,
-        "y": 2.0470247108532074
+        "x": 5.764118194903057,
+        "y": 7.474011985061007
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 0.6961495404457838,
-        "y": 4.429517994834898
+        "x": 7.583388993938482,
+        "y": 7.418320021825229
       },
       "prevControl": {
-        "x": 0.798251473046156,
-        "y": 4.151058178659567
+        "x": 6.850111478000735,
+        "y": 7.4368840095704885
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "AMP START MID"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.5,
-      "rotationDegrees": -55.0,
-      "rotateFast": true
+      "waypointRelativePos": 0.7,
+      "rotationDegrees": 0,
+      "rotateFast": false
     }
   ],
   "constraintZones": [],
@@ -61,7 +61,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -60.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,

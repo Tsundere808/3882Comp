@@ -12,17 +12,15 @@ import frc.robot.subsystems.Shooter.IntakeSubsystem;
 import frc.robot.subsystems.Shooter.PivotSubsystem;
 
 
-public class IntakeCommand extends Command{
+public class IntakeCommandAutoSTAGE extends Command{
 
     private final IntakeSubsystem intake;
     private final FeederSubsystem feeder;
     private final PivotSubsystem pivot;
 
     private final LEDSubsystem led;
-    
-    private boolean firstcheck = true;
 
-    public IntakeCommand(IntakeSubsystem intake,FeederSubsystem feeder, LEDSubsystem led, PivotSubsystem pivot) {
+    public IntakeCommandAutoSTAGE(IntakeSubsystem intake,FeederSubsystem feeder, LEDSubsystem led, PivotSubsystem pivot) {
         this.intake = intake;
         this.feeder = feeder;
         this.pivot = pivot;
@@ -35,41 +33,34 @@ public class IntakeCommand extends Command{
     led.setRED();
     feeder.setVelocity(.32);
     intake.setVelocity(-50);
-    pivot.intakePosition();    
+    pivot.intakePosition();
+    led.setRED();
+    
   }
 
   @Override
   public void execute()
   {
-    feeder.setVelocity(.33);
+    feeder.setVelocity(.32);
     intake.setVelocity(-50);
-
-    if(!firstcheck)
-    {firstcheck = feeder.noteCheck(); } 
   }
 
       @Override
       public boolean isFinished() {
-        if(firstcheck == true)
-        {
-          return feeder.noteCheck();
-        }
-        else 
-        {
-          return false;
-        }
+       return feeder.noteCheck();
       }
 
      @Override
      public void end(boolean interrupted) {
       feeder.setVelocity(0);
       intake.setVelocity(0);
-      pivot.setVelocity(0);
+      pivot.setPosition(35.1);
       if(!interrupted)
       {
         led.setGREEN();
         LimelightHelpers.setLEDMode_ForceBlink("limelight-lunas");
       }
+        LimelightHelpers.setLEDMode_ForceOff("limelight-lunas");
 
     }
 }

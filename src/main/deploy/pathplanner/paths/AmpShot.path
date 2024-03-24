@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.67321423531736,
-        "y": 6.796426432359037
+        "x": 2.756752180171027,
+        "y": 6.824272413976926
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.7439249134360146,
-        "y": 6.8671371104776915
+        "x": 2.8274628582896817,
+        "y": 6.894983092095581
       },
       "isLocked": false,
       "linkedName": "AmpPickup"
@@ -33,7 +33,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.5,
-    "maxAcceleration": 3.5,
+    "maxAcceleration": 3.6,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

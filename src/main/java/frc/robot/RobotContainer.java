@@ -33,6 +33,7 @@ import frc.robot.CommandBases.ElevatorWithSpeed;
 import frc.robot.CommandBases.FeederShot;
 import frc.robot.CommandBases.IntakeCommand;
 import frc.robot.CommandBases.IntakeCommandAuto;
+import frc.robot.CommandBases.IntakeCommandAutoSTAGE;
 import frc.robot.CommandBases.PivotwithSpeed;
 import frc.robot.CommandBases.TELEShootCommand;
 import frc.robot.CommandBases.AUTOShootCommandSubwoofer;
@@ -70,8 +71,8 @@ public class RobotContainer {
   //AMPPivot
   public final AMPPivotSubsystem amppivot = new AMPPivotSubsystem();
 
-  public final AMPPivotwithSpeed amppivotup = new AMPPivotwithSpeed(amppivot,.27);
-  public final AMPPivotwithSpeed amppivotdown = new AMPPivotwithSpeed(amppivot,-.27);
+  public final AMPPivotwithSpeed amppivotup = new AMPPivotwithSpeed(amppivot,.37); //.27
+  public final AMPPivotwithSpeed amppivotdown = new AMPPivotwithSpeed(amppivot,-.37);
 
 
   //ELEVATOR
@@ -93,6 +94,7 @@ public class RobotContainer {
   TELEShootCommand  teleShootCommand = new TELEShootCommand(shooter,feeder,led);
   IntakeCommand intakecommand = new IntakeCommand(intake, feeder, led,pivot);
   IntakeCommandAuto intakecommandAuto = new IntakeCommandAuto(intake, feeder, led,pivot);
+  IntakeCommandAutoSTAGE intakecommandAutoSTAGE = new IntakeCommandAutoSTAGE(intake, feeder, led,pivot);
 
   //AutoPivotSub autoPivotSub = new AutoPivotSub(pivot);
   AutoShoot autoshoot = new AutoShoot(feeder, shooter);
@@ -133,7 +135,7 @@ public class RobotContainer {
             .withRotationalRate(-xbox.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
         ));
 
-      xbox.x().toggleOnTrue( drivetrain.applyRequest(() -> robotdrive.withVelocityX(xbox.getLeftY() * MaxSpeed) // Drive forward with
+      xbox.x().whileTrue(drivetrain.applyRequest(() -> robotdrive.withVelocityX(xbox.getLeftY() * MaxSpeed) // Drive forward with
                                                                                            // negative Y (forward)
             .withVelocityY(xbox.getLeftX() * MaxSpeed) // Drive left with negative X (left)
             .withRotationalRate(-xbox.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
@@ -196,10 +198,10 @@ amppivot.setDefaultCommand(amppivot.holdPosition());
 joystick.pov(180).whileTrue(amppivotup);
 joystick.pov(0).whileTrue(amppivotdown);
 
-joystick.button(7).onTrue(amppivot.withPosition(48));//intake position
-joystick.button(9).onTrue(amppivot.withPosition(34));//intake position
+//joystick.button(7).onTrue(amppivot.withPosition(48));//intake position
+//joystick.button(9).onTrue(amppivot.withPosition(34));//intake position
 
-joystick.button(8).onTrue(amppivot.withPosition(3)); //home 
+//joystick.button(8).onTrue(amppivot.withPosition(3)); //home 
 
 //Elevator
 ////////////////////////
@@ -229,6 +231,7 @@ joystick.button(3).whileTrue(climber.slowUp());
 
   NamedCommands.registerCommand("setFieldRelative",drivetrain.runOnce(() ->  drivetrain.seedFieldRelative()));
   NamedCommands.registerCommand("startIntake", intakecommandAuto);
+  NamedCommands.registerCommand("STAGEIntake", intakecommandAutoSTAGE);
   //NamedCommands.registerCommand("SubwooferPivot",autoPivotSub);
   NamedCommands.registerCommand("FeederShoot", feederShot);
   NamedCommands.registerCommand("AutoShoot",autoshoot );

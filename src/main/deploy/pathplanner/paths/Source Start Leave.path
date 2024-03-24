@@ -8,48 +8,64 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.06,
-        "y": 3.91698729810778
+        "x": 0.733277515937748,
+        "y": 3.7240864605186
       },
-      "isLocked": false,
+      "isLocked": true,
       "linkedName": "LEFTSTART"
     },
     {
       "anchor": {
-        "x": 5.597042305195722,
-        "y": 1.6913298024126904
+        "x": 3.072339971840438,
+        "y": 1.6727658146674325
       },
       "prevControl": {
-        "x": 5.100423119460219,
-        "y": 1.749376200745412
+        "x": 1.6429129154554605,
+        "y": 1.9326616431010635
       },
       "nextControl": {
-        "x": 6.09366149093123,
-        "y": 1.6332834040799682
+        "x": 3.620352537464322,
+        "y": 1.5731271663721813
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.917540773353152,
-        "y": 2.4246073183504397
+        "x": 5.866220127501983,
+        "y": 1.9048156614831742
       },
       "prevControl": {
-        "x": 7.417540773353152,
-        "y": 2.4246073183504397
+        "x": 4.511049022098044,
+        "y": 1.4871259372148369
+      },
+      "nextControl": {
+        "x": 6.169628342004889,
+        "y": 1.998331891980645
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.2770831961417,
+        "y": 2.4060433306051796
+      },
+      "prevControl": {
+        "x": 7.045033349325958,
+        "y": 2.2853774102609927
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Source Second Mid"
+      "linkedName": "SOURCE PICK UP SET UP"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.5,
-    "maxAcceleration": 3.5,
+    "maxVelocity": 7.0,
+    "maxAcceleration": 7.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -64,5 +80,5 @@
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

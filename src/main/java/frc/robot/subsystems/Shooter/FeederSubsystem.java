@@ -25,8 +25,7 @@ private final VelocityVoltage m_voltageVelocity = new VelocityVoltage(0, 0, true
 
 private final DigitalInput intakeLine;
 
-private   Debouncer m_debouncer = new Debouncer(0.2, Debouncer.DebounceType.kBoth);
-
+private   Debouncer m_debouncer = new Debouncer(0.06, Debouncer.DebounceType.kBoth);
 
  Encoder encoder;
 
@@ -46,7 +45,7 @@ public FeederSubsystem()
 {
 
        m_feeder = new WPI_TalonSRX(FeederConstants.feeder);
-       intakeLine = new DigitalInput(0);
+       intakeLine = new DigitalInput(1);
 
      
 }
