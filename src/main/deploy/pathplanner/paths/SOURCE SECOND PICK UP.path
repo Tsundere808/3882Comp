@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.2770831961417,
-        "y": 2.45
+        "x": 7.314211171632221,
+        "y": 0.772412409022348
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.3770831961417,
-        "y": 2.45
+        "x": 7.41421117163222,
+        "y": 0.772412409022348
       },
       "isLocked": false,
-      "linkedName": "SOURCE PICK UP SET UP"
+      "linkedName": "SOURCE SECOND LEAVE"
     },
     {
       "anchor": {
-        "x": 8.22,
-        "y": 2.44
+        "x": 8.2,
+        "y": 0.772412409022348
       },
       "prevControl": {
-        "x": 8.120000000000001,
-        "y": 2.44
+        "x": 8.1,
+        "y": 0.772412409022348
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "SOURCE SECOND END"
     }
   ],
   "rotationTargets": [],

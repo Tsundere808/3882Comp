@@ -1,0 +1,55 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.11,
+      "y": 6.6
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "setFieldRelative"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "startIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right Start"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "PivotShot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 11.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AMP LEAVE"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

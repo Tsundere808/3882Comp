@@ -29,6 +29,7 @@ import frc.robot.CommandBases.AMPPivotwithSpeed;
 import frc.robot.CommandBases.AUTOShootCommandIntakePos;
 import frc.robot.CommandBases.AutoPivotSub;
 import frc.robot.CommandBases.AutoShoot;
+import frc.robot.CommandBases.ClimbSetupCommand;
 import frc.robot.CommandBases.ElevatorWithSpeed;
 import frc.robot.CommandBases.FeederShot;
 import frc.robot.CommandBases.IntakeCommand;
@@ -106,6 +107,7 @@ public class RobotContainer {
   
   SequentialCommandGroup SHOOTAUTO = new SequentialCommandGroup(autoshoot,feederShot,new WaitCommand(.5));
 
+  ClimbSetupCommand climberSetupCommand = new ClimbSetupCommand(climber,led);
   private double MaxSpeed = TunerConstants.kSpeedAt12VoltsMps; // kSpeedAt12VoltsMps desired top speed
   private double MaxAngularRate = 1.5 * Math.PI; // 3/4 of a rotation per second max angular velocity
 
@@ -190,8 +192,8 @@ public class RobotContainer {
 
 //AmpFeeder
 ampfeeder.setDefaultCommand(ampfeeder.withDisable());
-joystick.button(1).whileTrue(ampfeeder.midspeed());
-joystick.button(2).whileTrue(ampfeeder.withVelocity(-0.8));
+//joystick.button(1).whileTrue(ampfeeder.midspeed());
+//joystick.button(2).whileTrue(ampfeeder.withVelocity(-0.8));
   
 //AMPpivot
 amppivot.setDefaultCommand(amppivot.holdPosition());
@@ -209,18 +211,18 @@ elevator.setDefaultCommand(elevator.holdPosition());
 //joystick.button(10).whileTrue(elevatorup);
 //joystick.button(9).whileTrue(elevatordown);
 //joystick.button(12).onTrue(elevator.setUpPosition());
-joystick.button(12).onTrue(elevator.setUpPosition());
+//joystick.button(12).onTrue(elevator.setUpPosition());
   //new ParallelCommandGroup(elevator.setUpPosition(),amppivot.withPosition(27.3)));
-joystick.button(11).onTrue(elevator.setHomePosition());
-joystick.button(9).whileTrue(new ElevatorWithSpeed(elevator, joystick.getYChannel()));
+//joystick.button(11).onTrue(elevator.setHomePosition());
+//joystick.button(9).whileTrue(new ElevatorWithSpeed(elevator, joystick.getYChannel()));
 
 
 //Climber
 climber.setDefaultCommand(climber.stop());
 joystick.button(3).whileTrue(climber.slowUp());
 
-//joystick.axisGreaterThan(3,0.9).onTrue(climber.setUpPosition());
-//joystick.axisLessThan(3,-0.9).onTrue(climber.ClimbedPosition());
+joystick.axisLessThan(3,-0.9).onTrue(climberSetupCommand);
+joystick.axisGreaterThan(3, 0.9).onTrue(climber.ClimbedPosition());
 
 //xbox.leftBumper().onTrue(climber.stop());
 

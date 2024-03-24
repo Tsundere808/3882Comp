@@ -47,8 +47,8 @@ public ClimberSubsystem()
    c_encoder = m_climber.getEncoder();
 
    // PID coefficients
-   kP = 0.03; 
-   kI = 0;
+   kP = 0.14; 
+   kI = 0.07;
    kD = 0; 
    kIz = 0; 
    kFF = 0.000015; 
@@ -64,6 +64,8 @@ public ClimberSubsystem()
    c_pidController.setFF(kFF);
    c_pidController.setOutputRange(kMinOutput, kMaxOutput);
 
+   c_encoder.setPosition(0);
+
 }
 
 private void resetEnc()
@@ -78,7 +80,7 @@ private void setVelocity(double setPoint)
   //l_pidController.setReference(setPoint, CANSparkMax.ControlType.kVelocity);
 }
 
-private void setPosition(double setPoint)
+public void setPosition(double setPoint)
 {
   c_pidController.setReference(setPoint, CANSparkMax.ControlType.kPosition);
 }
@@ -86,6 +88,11 @@ private void setPosition(double setPoint)
 public Command withVelocity(double setPoint)
 {
   return runOnce(() -> this.setVelocity(setPoint));
+}
+
+public boolean setUPCHECK()
+{
+return c_encoder.getPosition() < -160;
 }
 
 /*
@@ -123,12 +130,12 @@ public Command setHomePosition()
 
 public Command setUpPosition()
 {
-  return run(() -> this.setPosition(-61)); // need to find
+  return run(() -> this.setPosition(-160)); // need to find
 }
 
 public Command ClimbedPosition()
 {
-  return run(() -> this.setPosition(-100)); // need to find
+  return runOnce(() -> this.setPosition(-330)); // need to find
 }
 
 @Override

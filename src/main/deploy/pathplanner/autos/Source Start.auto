@@ -73,13 +73,19 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "Source Mid Path"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "LEFTTOMID"
+                  "pathName": "SOURCE SECOND PICK UP"
                 }
               },
               {

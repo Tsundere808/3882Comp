@@ -65,15 +65,15 @@
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "startIntake"
-                }
-              },
-              {
                 "type": "path",
                 "data": {
                   "pathName": "AmpPickup"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "startIntake"
                 }
               }
             ]

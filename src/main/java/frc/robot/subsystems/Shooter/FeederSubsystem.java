@@ -25,7 +25,10 @@ private final VelocityVoltage m_voltageVelocity = new VelocityVoltage(0, 0, true
 
 private final DigitalInput intakeLine;
 
-private   Debouncer m_debouncer = new Debouncer(0.06, Debouncer.DebounceType.kBoth);
+private final DigitalInput intakeLine2;
+
+
+private   Debouncer m_debouncer = new Debouncer(0.07, Debouncer.DebounceType.kBoth);
 
  Encoder encoder;
 
@@ -40,19 +43,27 @@ private GenericEntry shooterVoltage =
 private GenericEntry feedercheck =
       tab.add("Feeder Note Check", false)
          .getEntry();
+
+      
+private GenericEntry feedercheck2 =
+      tab.add("Feeder Note Check 2", false)
+         .getEntry();
+          
     
 public FeederSubsystem()
 {
 
        m_feeder = new WPI_TalonSRX(FeederConstants.feeder);
        intakeLine = new DigitalInput(1);
+       intakeLine2 = new DigitalInput(0);
 
      
 }
 
 public boolean noteCheck()
 {
-  return m_debouncer.calculate(intakeLine.get());
+  return (m_debouncer.calculate( intakeLine.get()) && m_debouncer.calculate(!intakeLine2.get()));
+  //return m_debouncer.calculate(intakeLine.get());
 }
 
 public void disable()
@@ -101,6 +112,7 @@ SmartDashboard.putBoolean("FEEDER NOTE CHECK", intakeLine.get());
 shooterVoltage.setDouble(m_feeder.getMotorOutputVoltage());
 shooterspeed.setDouble(m_feeder.getMotorOutputPercent());
 feedercheck.setBoolean(intakeLine.get());
+feedercheck2.setBoolean(intakeLine2.get());
 }
 
 
