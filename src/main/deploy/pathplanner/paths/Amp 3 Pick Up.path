@@ -3,50 +3,50 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.756752180171027,
-        "y": 6.824272413976926
+        "x": 3.63854159807085,
+        "y": 6.239506800001254
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.8274628582896817,
-        "y": 6.894983092095581
+        "x": 5.940476078483021,
+        "y": 6.620068548779072
       },
       "isLocked": false,
-      "linkedName": "AmpPickup"
+      "linkedName": "AMP SECOND SHOT END"
     },
     {
       "anchor": {
-        "x": 1.41,
-        "y": 5.53
+        "x": 7.917540773353152,
+        "y": 5.803253087987657
       },
       "prevControl": {
-        "x": 1.3099999999999998,
-        "y": 5.53
+        "x": 6.812983502510217,
+        "y": 6.155968855147586
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "MidShot"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.62,
-    "maxAcceleration": 3.62,
+    "maxVelocity": 6.0,
+    "maxAcceleration": 6.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
     "rotation": 0,
-    "rotateFast": true
+    "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 46.543880373533696,
+    "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

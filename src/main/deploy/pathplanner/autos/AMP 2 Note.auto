@@ -26,7 +26,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 8.0
+            "waitTime": 7.5
           }
         },
         {
@@ -64,6 +64,25 @@
           "type": "named",
           "data": {
             "name": "PivotShot"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "STAGEIntake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Amp 3 Pick Up"
+                }
+              }
+            ]
           }
         }
       ]
